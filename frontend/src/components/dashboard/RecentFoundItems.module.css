@@ -1,0 +1,16 @@
+/* .section { */
+  /* spacing handled by Bootstrap (container, my-5) */
+/* } */
+
+.title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #111827;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  color: #64748b;
+  margin-bottom: 24px;
+  font-size: 1.05rem;
+}

@@ -1,0 +1,14 @@
+.section {
+  margin: 64px 0;
+}
+
+.title {
+  font-weight: 800;
+  font-size: 2rem;
+  color: #111827;
+}
+
+.subtitle {
+  color: #64748b;
+  margin-bottom: 24px;
+}

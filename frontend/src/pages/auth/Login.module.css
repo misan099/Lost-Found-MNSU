@@ -1,0 +1,189 @@
+/* PAGE */
+.authWrapper {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f5f7fc, #eef2ff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* CARD */
+.authCard {
+  width: 1100px;
+  max-width: 100%;
+  background: #ffffff;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(31, 41, 55, 0.15);
+}
+
+/* IMAGE */
+.authImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* RIGHT */
+.authRight {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* TEXT */
+.brandTitle {
+  font-size: 32px;
+  font-weight: 700;
+  color: #5f73f3;
+}
+
+.welcomeTitle {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.subtitle {
+  color: #6b7280;
+}
+
+/* LABEL */
+.formLabel {
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+/* INPUT DEFAULT (GRAY) */
+.authInput {
+  height: 64px !important;
+  padding: 0 18px !important;
+  font-size: 16px !important;
+
+  border-radius: 14px !important;
+  border: 2px solid #e2e8f0 !important;
+  background: #f8fafc !important;
+
+  box-shadow: none !important;
+  transition: all 0.25s ease;
+}
+
+/* HOVER → WHITE */
+.authInput:hover {
+  background: #ffffff !important;
+  border-color: #c7d2fe !important;
+}
+
+/* FOCUS (TYPING) → WHITE + BLUE RING */
+.authInput:focus {
+  background: #ffffff !important;
+  border-color: #6c7cf5 !important;
+  box-shadow: 0 0 0 4px rgba(108, 124, 245, 0.25) !important;
+  outline: none !important;
+}
+
+/* PASSWORD */
+.passwordWrapper {
+  position: relative;
+}
+
+.passwordToggle {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 18px;
+  color: #6b7280;
+}
+
+.passwordToggle:hover {
+  color: #374151;
+}
+
+/* LINK */
+.authLink {
+  color: #6c7cf5;
+  font-size: 18px;
+  text-decoration: none;
+}
+
+.authLink:hover {
+  text-decoration: underline;
+}
+
+/* BUTTON */
+.authBtn {
+  height: 64px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #6c7cf5, #5a6bf0);
+  border: none;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(108, 124, 245, 0.35);
+  transition: all 0.2s ease;
+  margin-top:24px;
+}
+
+.authBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px rgba(108, 124, 245, 0.45);
+}
+
+/* DIVIDER */
+.divider {
+  display: flex;
+  align-items: center;
+  color: #9ca3af;
+}
+
+.divider span {
+  flex: 1;
+  height: 1px;
+  background: #e5e7eb;
+}
+
+.divider p {
+  margin: 0 14px;
+}
+
+/* SIGNUP */
+.signupText {
+  color: #4b5563;
+    margin-top: 24px;      /* ⬇ pushes it down from Login button */
+
+}
+
+
+/* ===============================
+   FIELD ERROR (UNDER INPUT)
+================================ */
+.fieldError {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #d92d20;
+}
+
+/* ===============================
+   GENERAL LOGIN ERROR (BANNER)
+================================ */
+.generalError {
+  background-color: #fdecea;
+  color: #b42318;
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+/* ===============================
+   DISABLED BUTTON (OPTIONAL)
+================================ */
+.authBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
