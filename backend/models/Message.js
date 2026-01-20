@@ -17,9 +17,25 @@ const Message = sequelize.define(
       allowNull: false,
     },
 
+    claim_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+
     sender_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+    },
+
+    sender_role: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+
+    type: {
+      type: DataTypes.ENUM("user", "system"),
+      allowNull: false,
+      defaultValue: "user",
     },
 
     message_text: {

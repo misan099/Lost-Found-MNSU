@@ -1,4 +1,4 @@
-~"use strict";
+"use strict";
 
 const { DataTypes } = require("sequelize");
 const sequelize = require("../database/sequelize");
@@ -14,12 +14,32 @@ const Claim = sequelize.define(
 
     found_item_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
+      references: {
+        model: "FoundItems", // ƒo. MUST MATCH ACTUAL TABLE NAME
+        key: "id",
+      },
+      onDelete: "CASCADE",
+    },
+
+    lost_item_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: "lost_items",
+        key: "id",
+      },
+      onDelete: "CASCADE",
     },
 
     claimant_user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: "users",
+        key: "id",
+      },
+      onDelete: "CASCADE",
     },
 
     verification_text: {
@@ -27,8 +47,29 @@ const Claim = sequelize.define(
       allowNull: false,
     },
 
+    verification_type: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+
+    additional_context: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+
+    proof_image_url: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+
     status: {
-      type: DataTypes.ENUM("pending", "approved", "rejected"),
+      type: DataTypes.ENUM(
+        "pending",
+        "verified",
+        "awaiting_admin_resolution",
+        "rejected",
+        "resolved"
+      ),
       defaultValue: "pending",
     },
 
@@ -44,21 +85,29 @@ const Claim = sequelize.define(
   }
 );
 
-
+/* =====================
+   Associations
+===================== */
 Claim.associate = (models) => {
-  // The found item being claimed
+  // dY"- Claim ƒ+' Found Item
   Claim.belongsTo(models.FoundItem, {
     foreignKey: "found_item_id",
     as: "foundItem",
   });
 
-  // The user who is claiming the item
+  // dY"- Claim ƒ+' Lost Item
+  Claim.belongsTo(models.LostItem, {
+    foreignKey: "lost_item_id",
+    as: "lostItem",
+  });
+
+  // dY"- Claim ƒ+' User
   Claim.belongsTo(models.User, {
     foreignKey: "claimant_user_id",
     as: "claimant",
   });
 
-  // One discussion thread per claim
+  // dY"- Claim ƒ+' Message Thread
   Claim.hasOne(models.MessageThread, {
     foreignKey: "claim_id",
     as: "thread",

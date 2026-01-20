@@ -1,0 +1,799 @@
+.wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.pageHeader {
+  background: #ffffff;
+  padding: 24px 32px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.pageTitle {
+  margin: 0;
+  font-size: 28px;
+  color: #1a202c;
+  font-weight: 600;
+}
+
+.subtitle {
+  margin: 6px 0 0 0;
+  color: #718096;
+  font-size: 14px;
+}
+
+.controlsBar {
+  background: #ffffff;
+  padding: 20px 24px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.controlGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.controlLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: #4a5568;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.controlInput {
+  padding: 10px 14px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.2s;
+  background: #ffffff;
+}
+
+.searchInput {
+  min-width: 320px;
+}
+
+.controlInput:focus {
+  outline: none;
+  border-color: #4299e1;
+}
+
+.claimsTableContainer {
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tableHead {
+  background: #2d3748;
+}
+
+.tableHeaderCell {
+  padding: 16px;
+  text-align: left;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tableRow {
+  border-bottom: 1px solid #e2e8f0;
+  transition: background 0.2s;
+}
+
+.tableRow:hover {
+  background: #f7fafc;
+}
+
+.tableCell {
+  padding: 16px;
+  font-size: 14px;
+  color: #2d3748;
+}
+
+.itemInfo {
+  margin-bottom: 4px;
+}
+
+.itemName {
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.itemLocation {
+  font-size: 12px;
+  color: #718096;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.locationIcon {
+  font-size: 14px;
+}
+
+.ownerName {
+  font-weight: 500;
+  color: #2d3748;
+}
+
+.statusBadge {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.statusPending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.statusVerified {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.statusAwaiting {
+  background: #ffedd5;
+  color: #9a3412;
+}
+
+.statusRejected {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.statusResolved {
+  background: #e0e7ff;
+  color: #3730a3;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.actionButtonLarge {
+  padding: 10px 18px;
+  font-size: 14px;
+  border-radius: 8px;
+}
+
+.button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.buttonInfo {
+  background: #3b82f6;
+  color: #ffffff;
+}
+
+.buttonSuccess {
+  background: #10b981;
+  color: #ffffff;
+}
+
+.buttonDanger {
+  background: #ef4444;
+  color: #ffffff;
+}
+
+.noClaims {
+  text-align: center;
+  padding: 60px 20px;
+  color: #a0aec0;
+  font-size: 16px;
+}
+
+.errorMessage {
+  background: #fee2e2;
+  color: #991b1b;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 50;
+}
+
+.modalContent {
+  background: #ffffff;
+  border-radius: 12px;
+  max-width: 520px;
+  width: 100%;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.modalTitle {
+  margin: 0;
+  font-size: 18px;
+  color: #1a202c;
+}
+
+.modalClose {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #64748b;
+  font-size: 18px;
+}
+
+.modalBody {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.viewModal {
+  width: min(1120px, 96vw);
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.viewModal .modalHeader {
+  justify-content: center;
+  position: relative;
+  padding: 20px 24px;
+}
+
+.viewModal .modalTitle {
+  font-size: 22px;
+  text-align: center;
+}
+
+.viewModal .modalClose {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.viewModalBody {
+  padding: 24px 28px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  overflow-y: auto;
+}
+
+.viewImageCard {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  padding: 14px;
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+}
+
+.viewImage {
+  width: 100%;
+  height: 320px;
+  object-fit: contain;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  background: #f1f5f9;
+  cursor: zoom-in;
+}
+
+.viewImagePlaceholder {
+  height: 320px;
+  border-radius: 16px;
+  border: 1px dashed #cbd5f5;
+  background: #eef2ff;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.viewImagePlaceholder svg {
+  font-size: 34px;
+}
+
+.viewSection {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.viewSectionTitle {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1f2937;
+  text-align: center;
+}
+
+.viewField {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.viewLabel {
+  font-size: 15px;
+  font-weight: 600;
+  color: #475569;
+}
+
+.viewValue {
+  font-size: 18px;
+  color: #111827;
+  line-height: 1.6;
+}
+
+.viewMuted {
+  color: #64748b;
+  font-weight: 500;
+}
+
+.viewAdminBlock {
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  border-radius: 16px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.viewAdminHeader {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #9a3412;
+}
+
+.viewAdminHeader svg {
+  font-size: 18px;
+}
+
+.modalSection {
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 12px;
+  background: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modalSectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modalSectionTitle {
+  margin: 0;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #1f2937;
+}
+
+.modalSectionBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #475569;
+  font-size: 16px;
+}
+
+.modalImage {
+  width: 100%;
+  max-width: 360px;
+  max-height: 200px;
+  border-radius: 10px;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+  cursor: zoom-in;
+}
+
+.proofThumb {
+  width: 140px;
+  height: 96px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 1px solid #e2e8f0;
+  cursor: zoom-in;
+}
+
+.zoomOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 60;
+  padding: 24px;
+}
+
+.zoomImage {
+  max-width: 70%;
+  max-height: 70%;
+  border-radius: 12px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+}
+
+.zoomClose {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  border: none;
+  background: #ffffff;
+  color: #1f2937;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.modalRow {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.modalLabel {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.modalValue {
+  font-size: 14px;
+  color: #1f2937;
+}
+
+.modalFooter {
+  padding: 16px 20px;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.textArea {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 2px solid #e2e8f0;
+  font-size: 14px;
+  resize: vertical;
+  min-height: 120px;
+}
+
+.textArea:focus {
+  outline: none;
+  border-color: #4299e1;
+}
+
+.confirmText {
+  margin: 0;
+  font-size: 14px;
+  color: #2d3748;
+  line-height: 1.5;
+}
+
+.claimModal {
+  width: min(1200px, 96vw);
+  max-width: 1200px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.claimModalTitle {
+  font-size: 24px;
+}
+
+.claimModalBody {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  padding: 20px 22px;
+  background: #f8fafc;
+  overflow: hidden;
+}
+
+.claimColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-right: 6px;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.claimColumnTitle {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.claimImageCard {
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  padding: 12px;
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+}
+
+.claimImage {
+  width: 100%;
+  height: 220px;
+  border-radius: 12px;
+  object-fit: contain;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.08);
+  cursor: zoom-in;
+}
+
+.imagePlaceholder {
+  height: 220px;
+  border-radius: 12px;
+  border: 1px dashed #cbd5f5;
+  background: #eef2ff;
+  color: #64748b;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.imagePlaceholder svg {
+  font-size: 32px;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fieldLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: #475569;
+}
+
+.fieldValue {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #111827;
+}
+
+.fieldMuted {
+  color: #64748b;
+  font-weight: 500;
+}
+
+.adminOnlyBlock {
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.detailBlockTitle {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1f2937;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.adminOnlyHeader {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #9a3412;
+}
+
+.adminOnlyHeader svg {
+  font-size: 18px;
+}
+
+.claimDetailBlock {
+  background: #eef2ff;
+  border: 1px solid #c7d2fe;
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.claimModalFooter {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 16px 22px;
+  border-top: 1px solid #e2e8f0;
+  background: #ffffff;
+  flex-shrink: 0;
+}
+
+.claimAction {
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 10px;
+  min-width: 140px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+
+  .controlInput {
+    min-width: 100%;
+  }
+
+  .controlsBar {
+    flex-direction: column;
+  }
+
+  .tableHeaderCell {
+    padding: 12px 8px;
+  }
+
+  .tableCell {
+    padding: 12px 8px;
+  }
+
+  .button {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .actionButtons {
+    flex-direction: column;
+  }
+
+  .zoomImage {
+    max-width: 90%;
+    max-height: 90%;
+  }
+
+  .viewModalBody {
+    padding: 16px;
+  }
+
+  .viewModal .modalTitle {
+    font-size: 20px;
+  }
+
+  .viewImage {
+    height: 240px;
+  }
+
+  .viewImagePlaceholder {
+    height: 240px;
+    font-size: 16px;
+  }
+
+  .viewSectionTitle {
+    font-size: 18px;
+  }
+
+  .viewLabel {
+    font-size: 14px;
+  }
+
+  .viewValue {
+    font-size: 16px;
+  }
+
+  .claimModalBody {
+    grid-template-columns: 1fr;
+  }
+
+  .claimModalFooter {
+    flex-direction: column;
+  }
+
+  .claimAction {
+    width: 100%;
+  }
+}

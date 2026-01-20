@@ -66,6 +66,7 @@
   flex: 1;
   padding: 40px;
   padding-bottom: 180px; /* 🔥 Reduced footer space */
+  overflow-y: auto;
 }
 
 /* ===============================

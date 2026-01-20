@@ -56,14 +56,15 @@ module.exports = {
       },
 
       status: {
-        type: Sequelize.ENUM(
-          "available",
-          "claim_requested",
-          "verified",
-          "resolved"
-        ),
-        defaultValue: "available",
-      },
+  type: Sequelize.ENUM(
+    "available",
+    "claim_requested",
+    "matched",
+    "resolved"
+  ),
+  defaultValue: "available",
+},
+
 
       created_at: {
         type: Sequelize.DATE,

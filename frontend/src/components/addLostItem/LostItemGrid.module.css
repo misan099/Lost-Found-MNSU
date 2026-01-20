@@ -1,0 +1,30 @@
+/* =========================
+   SECTION WRAPPER
+========================= */
+.section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 6rem 1.5rem 3rem;
+}
+
+/* =========================
+   GRID (PERFECT 3-COLUMN)
+========================= */
+.grid {
+  display: grid;
+  gap: 1.8rem;
+  margin-top: 3rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

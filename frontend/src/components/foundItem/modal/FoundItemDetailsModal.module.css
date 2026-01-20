@@ -1,0 +1,573 @@
+/* =====================================================
+   OVERLAY
+===================================================== */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 120px;
+  padding-inline: 24px;
+  overflow: hidden;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* =====================================================
+   MODAL
+===================================================== */
+.modal {
+  background: #ffffff;
+  width: 100%;
+  max-width: 720px;
+  max-height: calc(100vh - 160px);
+  border-radius: 36px;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  overflow: hidden;
+  animation: modalEnter 0.25s ease-out;
+}
+
+@keyframes modalEnter {
+  from {
+    opacity: 0;
+    transform: translateY(-24px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
+.header {
+  padding: 1.6rem 2.2rem;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background: #ffffff;
+  z-index: 2;
+}
+
+.titleBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  color: #6b7280;
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: #6b7280;
+}
+
+.closeBtn:hover {
+  color: #111827;
+}
+
+/* =====================================================
+   BODY
+===================================================== */
+.body {
+  overflow-y: auto;
+  padding: 2rem 2.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* =====================================================
+   IMAGE
+===================================================== */
+.imageWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.image {
+  max-width: 280px;
+  max-height: 320px;
+  object-fit: contain;
+}
+
+/* =====================================================
+   INFO
+===================================================== */
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  color: #111827;
+  font-size: 20px;
+}
+
+.itemTitle {
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.category {
+  font-size: 20px;
+  font-weight: 500;
+  color: #6b7280;
+  margin-top: -6px;
+}
+
+.status {
+  background: #10b981;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  width: fit-content;
+}
+
+.claimWarning {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: #fff7ed;
+  color: #c2410c;
+  border: 1px solid #fdba74;
+  padding: 0.6rem 0.8rem;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.warningIcon {
+  font-size: 1.1rem;
+}
+
+/* =====================================================
+   INFO ITEMS
+===================================================== */
+.infoItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  font-size: 22px;
+}
+
+.infoItem strong {
+  font-size: 18px;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.infoIcon {
+  font-size: 26px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+/* =====================================================
+   SECTIONS
+===================================================== */
+.section h4 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.section p {
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: #374151;
+}
+
+/* =====================================================
+   PRIVACY BOX (DETAILS)
+===================================================== */
+.privacyBox {
+  display: flex;
+  gap: 1rem;
+  background: #eff6ff;
+  border: 2px solid #bfdbfe;
+  border-radius: 16px;
+  padding: 1.4rem;
+}
+
+.privacyIcon {
+  width: 42px;
+  height: 42px;
+  background: #dbeafe;
+  color: #2563eb;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+/* =====================================================
+   FOOTER
+===================================================== */
+.footer {
+  padding: 1.6rem 2.2rem;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  position: sticky;
+  bottom: 0;
+  background: #f9fafb;
+}
+
+.closeAction {
+  background: #e5e7eb;
+  border: none;
+  padding: 0.7rem 1.6rem;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.closeAction:hover {
+  background: #d1d5db;
+}
+
+.claimAction {
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  padding: 0.75rem 1.9rem;
+  border-radius: 12px;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.claimAction:hover {
+  background: #1d4ed8;
+}
+
+.claimAction:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* =====================================================
+   CLAIM FORM
+===================================================== */
+.claimForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.formBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.label {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.required {
+  color: #ef4444;
+  margin-left: 0.25rem;
+}
+
+.optional {
+  margin-left: 0.35rem;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.textarea {
+  width: 100%;
+  border: 2px solid #d1d5db;
+  border-radius: 16px;
+  padding: 0.85rem 1rem;
+  font-size: 1rem;
+  font-family: inherit;
+  color: #111827;
+  resize: none;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+}
+
+.counterRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+.counterLabel {
+  color: #6b7280;
+}
+
+.counterOk {
+  color: #16a34a;
+  font-weight: 600;
+}
+
+.select {
+  width: 100%;
+  border: 2px solid #d1d5db;
+  border-radius: 16px;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  background: #ffffff;
+  color: #111827;
+}
+
+.select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+}
+
+/* =====================================================
+   UPLOAD BOX
+===================================================== */
+.uploadBox {
+  border: 2px dashed #8fb1f2;
+  border-radius: 20px;
+  padding: 1.6rem;
+  min-height: 220px;
+  background: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.uploadBoxActive {
+  border-color: #3b82f6;
+  background: #eef4ff;
+}
+
+.uploadIcon {
+  font-size: 2.4rem;
+  color: #9ca3af;
+}
+
+.uploadContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  flex: 1;
+  justify-content: center;
+}
+
+.previewArea {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid rgba(59, 130, 246, 0.15);
+  overflow: hidden;
+}
+
+.previewImageFull {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.uploadTitle {
+  font-weight: 700;
+  color: #111827;
+  font-size: 1rem;
+}
+
+.uploadHint {
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.fileInput {
+  display: none;
+}
+
+.uploadFileRow {
+  margin-top: auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(59, 130, 246, 0.08);
+  border-radius: 12px;
+  padding: 0.7rem 0.9rem;
+  font-size: 0.9rem;
+  color: #1e3a8a;
+}
+
+.fileMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+  text-align: left;
+}
+
+.fileLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.fileHint {
+  font-size: 0.78rem;
+  color: #64748b;
+}
+
+.fileIcon {
+  color: #22c55e;
+  font-size: 1.1rem;
+}
+
+.fileName {
+  font-weight: 600;
+  word-break: break-word;
+}
+
+.filePlaceholder {
+  color: #94a3b8;
+  text-align: left;
+  width: 100%;
+}
+
+.removeFile {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: #ef4444;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+/* =====================================================
+   PRIVACY NOTICE (CLAIM)
+===================================================== */
+.privacyNotice {
+  display: flex;
+  gap: 1rem;
+  background: #ecfdf5;
+  border: 2px solid #bbf7d0;
+  border-radius: 16px;
+  padding: 1.2rem;
+}
+
+.privacyBadge {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #dcfce7;
+  color: #16a34a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+}
+
+.privacyTitle {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #166534;
+  margin-bottom: 0.2rem;
+}
+
+.privacyText {
+  font-size: 0.9rem;
+  color: #15803d;
+}
+
+/* =====================================================
+   TOASTS
+===================================================== */
+.toastStack {
+  position: fixed;
+  top: 96px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 10000;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.85rem 1.1rem;
+  border-radius: 14px;
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 18px 30px rgba(15, 23, 42, 0.25);
+}
+
+.toastIcon {
+  font-size: 1.25rem;
+}
+
+.toastsuccess {
+  background: #16a34a;
+}
+
+.toastwarning,
+.toastinfo,
+.toasterror {
+  background: #f97316;
+}
+
+@media (max-width: 768px) {
+  .overlay {
+    padding-top: 80px;
+  }
+
+  .modal {
+    max-width: 100%;
+    border-radius: 24px;
+  }
+
+  .footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

@@ -11,6 +11,7 @@ import { mapZodErrors } from "../../utils/auth/zodError";
 
 export default function Signup() {
   const [formData, setFormData] = useState({
+    fullname: "",
     email: "",
     password: "",
     securityQuestion: "",
@@ -67,6 +68,21 @@ export default function Signup() {
             <p className={styles.subtitle}>
               Create your account to get started
             </p>
+
+            {/* FULL NAME */}
+            <div className={styles.field}>
+              <label>Full Name</label>
+              <input
+                type="text"
+                name="fullname"
+                placeholder="Enter your full name"
+                value={formData.fullname}
+                onChange={handleChange}
+              />
+              {errors.fullname && (
+                <p className={styles.errorText}>{errors.fullname}</p>
+              )}
+            </div>
 
             {/* EMAIL */}
             <div className={styles.field}>

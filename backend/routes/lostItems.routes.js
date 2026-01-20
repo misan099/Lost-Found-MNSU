@@ -5,9 +5,12 @@ const {
   createLostItem,
   getPublicLostItems,
   getMyLostItems,
+  updateLostItem,
+  deleteLostItem,
 } = require("../controllers/lostItems.controller");
 
-const { protect } = require("../middlewares/authMiddleware");
+const { protect, adminOnly } = require("../middlewares/authMiddleware");
+const upload = require("../middlewares/multerLostItems");
 
 /* ======================================================
    PART B — GET LOST ITEMS (PUBLIC)
@@ -20,8 +23,14 @@ router.get("/", getPublicLostItems);
 router.get("/my", protect, getMyLostItems);
 
 /* ======================================================
+   ADMIN: UPDATE OR DELETE LOST ITEMS
+====================================================== */
+router.patch("/:id", protect, adminOnly, updateLostItem);
+router.delete("/:id", protect, adminOnly, deleteLostItem);
+
+/* ======================================================
    PACREATE LOST ITEM (USER)
 ====================================================== */
-router.post("/", protect, createLostItem);
+router.post("/", protect, upload.single("image"), createLostItem);
 
 module.exports = router;

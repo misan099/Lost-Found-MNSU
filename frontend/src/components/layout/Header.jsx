@@ -1,26 +1,34 @@
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import styles from "./Header.module.css";
 import appIcon from "../../assets/icons/appIcon.png";
 import profileImage from "../../assets/images/profile.png";
+import { logout } from "../../utils/auth/authToken";
 
 export default function Header() {
   const username = "Prajal Danai";
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // ✅ Treat dashboard as Home
+  const isHomeActive =
+    location.pathname === "/" || location.pathname === "/dashboard";
 
   return (
     <>
-      {/* 🔥 FAKE HEADER (SPACER) */}
+      {/* 🔥 SPACER FOR FIXED HEADER */}
       <div className={styles.fakeHeader}></div>
 
-      {/* 🔥 REAL FIXED HEADER */}
+      {/* 🔥 FIXED HEADER */}
       <header className={styles.header}>
         <div className={styles.container}>
 
-          {/* LEFT */}
+          {/* LEFT (LOGO) */}
           <div className={styles.left}>
             <img src={appIcon} alt="App Icon" className={styles.logoImage} />
             <span className={styles.logoText}>Lost &amp; Found</span>
           </div>
 
-          {/* CENTER */}
+          {/* CENTER (SEARCH) */}
           <div className={styles.center}>
             <i className={`bi bi-search ${styles.searchIcon}`}></i>
             <input
@@ -33,10 +41,41 @@ export default function Header() {
           {/* RIGHT */}
           <div className={styles.right}>
             <nav className={styles.nav}>
-              <a href="#" className={styles.active}>Found Items</a>
-              <a href="#">Lost Items</a>
+              {/* ✅ HOME */}
+              <NavLink
+                to="/"
+                className={isHomeActive ? styles.active : undefined}
+              >
+                Home
+              </NavLink>
+
+              {/* FOUND */}
+              <NavLink
+                to="/found"
+                className={({ isActive }) =>
+                  isActive ? styles.active : undefined
+                }
+              >
+                Found Items
+              </NavLink>
+
+              <NavLink
+                to="/lost"
+                className={({ isActive }) =>
+                  isActive ? styles.active : undefined
+                }
+              >
+                Lost Items
+              </NavLink>
               <a href="#">My Posts</a>
-              <a href="#">Messages</a>
+              <NavLink
+                to="/messages"
+                className={({ isActive }) =>
+                  isActive ? styles.active : undefined
+                }
+              >
+                Messages
+              </NavLink>
               <a href="#">Resolve Items</a>
             </nav>
 
@@ -45,7 +84,16 @@ export default function Header() {
               <span className={styles.username}>{username}</span>
             </div>
 
-            <button className={styles.logout}>Logout</button>
+            <button
+              className={styles.logout}
+              type="button"
+              onClick={() => {
+                logout();
+                navigate("/login", { replace: true });
+              }}
+            >
+              Logout
+            </button>
           </div>
 
         </div>

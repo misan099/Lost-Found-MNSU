@@ -1,0 +1,37 @@
+/* =========================
+   SECTION WRAPPER
+========================= */
+.section {
+  max-width: 1200px;          /* ⬅ controls total grid width */
+  margin: 0 auto;
+    padding: 6rem 1.5rem 3rem; 
+
+}
+
+/* =========================
+   GRID (PERFECT 3-COLUMN)
+========================= */
+.grid {
+  display: grid;
+  gap: 1.8rem;  
+    margin-top: 3rem;
+    ;
+              /* spacing between cards */
+
+  /* 🔹 MOBILE (default) */
+  grid-template-columns: 1fr;
+}
+
+/* 🔹 TABLET (≥ 640px) → 2 cards */
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 🔹 DESKTOP (≥ 1024px) → EXACTLY 3 cards */
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

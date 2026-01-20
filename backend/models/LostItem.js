@@ -27,6 +27,21 @@ const LostItem = sequelize.define(
       allowNull: false,
     },
 
+    area: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+
+    exact_location: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+
+    public_description: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+
     description: {
       type: DataTypes.TEXT,
       allowNull: false,
@@ -44,6 +59,26 @@ const LostItem = sequelize.define(
 
     image_url: {
       type: DataTypes.STRING,
+      allowNull: true,
+    },
+
+    image_path: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+
+    admin_verification_details: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+
+    hidden_marks: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+
+    verification_notes: {
+      type: DataTypes.TEXT,
       allowNull: true,
     },
 

@@ -1,6 +1,6 @@
 import styles from "./HeroSection.module.css";
 
-export default function HeroSection() {
+export default function HeroSection({ onReportFoundItem }) {
   return (
     <section className={styles.hero}>
       <div className="container">
@@ -17,7 +17,10 @@ export default function HeroSection() {
             Report Lost Item
           </button>
 
-          <button className={`btn btn-success ${styles.secondaryBtn}`}>
+          <button
+            className={`btn btn-success ${styles.secondaryBtn}`}
+            onClick={onReportFoundItem}
+          >
             Report Found Item
           </button>
         </div>

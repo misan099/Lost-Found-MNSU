@@ -1,0 +1,13 @@
+.menuItem {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.activeItem {
+  background: rgba(59, 130, 246, 0.15);
+  border-left-color: #3b82f6;
+  color: #ffffff;
+}

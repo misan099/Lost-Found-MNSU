@@ -1,0 +1,46 @@
+.pageWrapper {
+  padding: 24px;
+}
+
+.pageTitle {
+  margin: 0 0 8px 0;
+}
+
+.pageSubtitle {
+  margin: 0 0 16px 0;
+}
+
+.errorMessage {
+  margin: 0 0 12px 0;
+  color: #991b1b;
+}
+
+.mutedText {
+  color: #6b7280;
+}
+
+.tableWrapper {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tableHeader {
+  text-align: left;
+  padding: 12px 16px;
+  background: #f9fafb;
+  font-weight: 600;
+}
+
+.tableRow {
+  border-top: 1px solid #e5e7eb;
+}
+
+.tableCell {
+  padding: 12px 16px;
+}

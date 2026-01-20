@@ -1,16 +1,34 @@
-import styles from "./RecentFoundItems.module.css";
+import { useState, useEffect } from "react";
+import api from "../../services/api";
 
-export default function RecentFoundItems() {
+const RecentFoundItems = () => {
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    const fetchRecentItems = async () => {
+      try {
+        const response = await api.get("/found-items/recent");
+        setItems(response.data);
+      } catch (error) {
+        console.error("Failed to fetch recent found items:", error);
+      }
+    };
+
+    fetchRecentItems();
+  }, []);
+
   return (
-    <section className={`${styles.section} container my-5`}>
-      <h2 className={styles.title}>Recent Found Items</h2>
-      <p className={styles.subtitle}>
-        Items that have been found recently
-      </p>
-
-      <div className={styles.comingSoon}>
-        Coming soon
-      </div>
-    </section>
+    <div>
+      <h2>Recent Found Items</h2>
+      <ul>
+        {items.map((item) => (
+          <li key={item.id}>
+            {item.item_name} – {item.category}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
-}
+};
+
+export default RecentFoundItems;
