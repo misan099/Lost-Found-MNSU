@@ -29,6 +29,14 @@ export const lostItemSchema = z.object({
     .min(1, "Date lost is required")
     .refine((val) => !isNaN(Date.parse(val)), "Invalid date format"),
 
+  time_lost: z
+    .string()
+    .trim()
+    .refine(
+      (val) => !val || /^\d{2}:\d{2}$/.test(val),
+      "Invalid time format"
+    ),
+
   public_description: z
     .string()
     .trim()

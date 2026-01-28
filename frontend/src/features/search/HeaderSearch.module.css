@@ -1,0 +1,118 @@
+.searchWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.resultsPanel {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  width: min(760px, 96vw);
+  min-width: 480px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  box-shadow: 0 16px 30px rgba(15, 23, 42, 0.12);
+  padding: 12px;
+  max-height: 420px;
+  overflow-y: auto;
+  z-index: 20;
+}
+
+.resultsHeader {
+  font-size: 13px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 6px 8px 10px;
+}
+
+.resultsEmpty {
+  padding: 16px 14px;
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+.resultRow {
+  width: 100%;
+  border: none;
+  background: transparent;
+  display: flex;
+  gap: 16px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.2s ease;
+}
+
+.resultRow:hover {
+  background: #f1f5f9;
+}
+
+.resultImage {
+  width: 80px;
+  height: 80px;
+  border-radius: 14px;
+  background: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.resultImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.resultInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.resultTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.resultMeta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: #64748b;
+}
+
+.resultBadge {
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: #e2e8f0;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.resultUserMeta {
+  font-weight: 600;
+  color: #475569;
+}
+
+.resultLocation {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.resultLocation svg {
+  width: 16px;
+  height: 16px;
+}

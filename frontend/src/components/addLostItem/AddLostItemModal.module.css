@@ -49,7 +49,7 @@
 
 .header h2 {
   margin: 0 0 4px;
-  font-size: 30px;
+  font-size: 34px;
   font-weight: 700;
   color: #111827;
 }
@@ -57,7 +57,7 @@
 .header p {
   margin: 0;
   color: #6b7280;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 .closeBtn {
@@ -97,7 +97,7 @@
   padding: 12px 14px;
   border-radius: 12px;
   margin-bottom: 20px;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .section {
@@ -117,14 +117,14 @@
 
 .sectionHeader h3 {
   margin: 0;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 700;
   color: #111827;
 }
 
 .sectionHeader p {
   margin: 4px 0 0;
-  font-size: 13px;
+  font-size: 15px;
   color: #6b7280;
 }
 
@@ -158,20 +158,23 @@
 .formGroup label {
   display: block;
   margin-bottom: 8px;
-  font-weight: 700;
+  font-weight: 600;
   color: #111827;
-  font-size: 14px;
+  font-size: 17px;
+  line-height: 1.4;
 }
 
 .formGroup input[type="text"],
+.formGroup input[type="time"],
 .formGroup input[type="date"],
 .formGroup select,
 .formGroup textarea {
   width: 100%;
-  padding: 12px 14px;
+  padding: 15px 18px;
   border: 2px solid #d1d5db;
   border-radius: 14px;
-  font-size: 15px;
+  font-size: 18px;
+  line-height: 1.4;
   font-family: inherit;
   color: #111827;
   background: #ffffff;
@@ -191,6 +194,16 @@
   resize: none;
 }
 
+.formGroup input::placeholder,
+.formGroup textarea::placeholder {
+  font-size: 16px;
+  color: #9ca3af;
+}
+
+.formGroup select option {
+  font-size: 18px;
+}
+
 .twoCol {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -203,7 +216,8 @@
 
 .optional {
   color: #6b7280;
-  font-weight: 400;
+  font-weight: 500;
+  font-size: 15px;
 }
 
 .warningText {
@@ -212,7 +226,7 @@
   align-items: flex-start;
   gap: 8px;
   color: #d97706;
-  font-size: 12px;
+  font-size: 15px;
 }
 
 .warningText svg {
@@ -264,11 +278,12 @@
 .uploadPlaceholder span {
   font-weight: 600;
   color: #374151;
+  font-size: 17px;
 }
 
 .uploadPlaceholder strong {
   font-weight: 500;
-  font-size: 12px;
+  font-size: 15px;
   color: #9ca3af;
 }
 
@@ -326,14 +341,14 @@
 
 .adminHeader h3 {
   margin: 0;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 700;
   color: #78350f;
 }
 
 .adminHeader p {
   margin: 6px 0 0;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   color: #b45309;
 }
@@ -364,7 +379,7 @@
   align-items: flex-start;
   gap: 10px;
   color: #92400e;
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.5;
 }
 
@@ -390,7 +405,7 @@
 
 .adminHelper {
   margin-top: 8px;
-  font-size: 12px;
+  font-size: 14px;
   color: #a16207;
 }
 
@@ -424,13 +439,13 @@
 
 .privacyBox p {
   margin: 0 0 4px;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
   color: #14532d;
 }
 
 .privacyBox span {
-  font-size: 13px;
+  font-size: 15px;
   color: #166534;
   line-height: 1.5;
 }
@@ -449,9 +464,9 @@
 
 .cancelBtn,
 .submitBtn {
-  padding: 12px 22px;
+  padding: 14px 26px;
   border-radius: 14px;
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 600;
   cursor: pointer;
   border: none;
@@ -493,7 +508,7 @@
 .fieldError {
   display: block;
   color: #dc2626;
-  font-size: 12px;
+  font-size: 14px;
   margin-top: 6px;
 }
 

@@ -11,6 +11,8 @@ import {
   HiOutlineLocationMarker,
 } from "react-icons/hi";
 import api from "../../services/api";
+import { isAuthenticated } from "../../utils/auth/authToken";
+import { getAccountStatus } from "../../utils/auth/authApi";
 import styles from "./LostItemDetailsModal.module.css";
 
 const MIN_CHARS = 50;
@@ -24,11 +26,31 @@ const normalizeStatus = (statusValue) => {
 
 const formatNepaliTime = (dateString) => {
   if (!dateString) return "";
-  return new Date(dateString).toLocaleString("en-NP", {
+  const normalized = String(dateString).trim();
+  if (!normalized) return "";
+  const parsed = new Date(normalized);
+  if (Number.isNaN(parsed.getTime())) return normalized;
+
+  const baseOptions = {
     timeZone: "Asia/Kathmandu",
     year: "numeric",
     month: "long",
     day: "numeric",
+  };
+
+  const timeMatch = normalized.match(
+    /(?:T|\s)(\d{2}):(\d{2})(?::(\d{2}))?/
+  );
+  const hasMeaningfulTime = timeMatch
+    ? timeMatch.slice(1).some((part) => part && part !== "00")
+    : false;
+
+  if (!hasMeaningfulTime) {
+    return parsed.toLocaleDateString("en-NP", baseOptions);
+  }
+
+  return parsed.toLocaleString("en-NP", {
+    ...baseOptions,
     hour: "2-digit",
     minute: "2-digit",
     hour12: true,
@@ -67,8 +89,18 @@ export default function LostItemDetailsModal({
     [item?.status]
   );
 
+  const hasVerifiedClaim = Boolean(item?.hasVerifiedClaim);
+  const isVerified =
+    hasVerifiedClaim ||
+    normalizedStatus === "verified" ||
+    normalizedStatus === "matched";
+  const isResolved =
+    normalizedStatus === "resolved" || normalizedStatus === "returned";
+  const isClaimLocked = isVerified || isResolved;
   const isClaimed =
-    normalizedStatus === "claimed" || item?.hasClaimed === true;
+    isClaimLocked ||
+    normalizedStatus === "claimed" ||
+    item?.hasClaimed === true;
   const hasExistingClaim = Boolean(
     item?.hasClaimed ||
       item?.hasRequestedClaim ||
@@ -152,7 +184,37 @@ export default function LostItemDetailsModal({
     resetForm();
   }, [open, item?.id, resetForm]);
 
-  const handleOpenClaim = () => {
+  const handleOpenClaim = async () => {
+    if (isClaimLocked) {
+      addToast(
+        "warning",
+        isResolved
+          ? "This item has already been resolved."
+          : "This item has already been verified."
+      );
+      return;
+    }
+    if (!isAuthenticated()) {
+      addToast("warning", "Please log in to claim this item.");
+      return;
+    }
+    try {
+      const status = await getAccountStatus();
+      if (
+        status?.status === "suspended" ||
+        status?.status === "blocked" ||
+        status?.status === "restricted"
+      ) {
+        addToast(
+          "warning",
+          status.notice ||
+            "Your account is restricted. Please contact support."
+        );
+        return;
+      }
+    } catch (error) {
+      console.error("Account status check failed:", error);
+    }
     if (isClaimed) {
       addToast("warning", "This item has already been claimed");
       return;
@@ -359,10 +421,14 @@ export default function LostItemDetailsModal({
                     <p className={styles.category}>{item.category}</p>
                     <span className={styles.status}>{item.status}</span>
 
-                    {isClaimed && (
+                    {(isClaimLocked || isClaimed) && (
                       <div className={styles.claimWarning}>
                         <HiExclamation className={styles.warningIcon} />
-                        <span>This item has already been claimed.</span>
+                        <span>
+                          {isClaimLocked
+                            ? "This item has already been verified."
+                            : "This item has already been claimed."}
+                        </span>
                       </div>
                     )}
 
@@ -608,7 +674,6 @@ export default function LostItemDetailsModal({
                     className={styles.claimAction}
                     onClick={handleOpenClaim}
                     type="button"
-                    disabled={isClaimed}
                   >
                     I found this item
                   </button>

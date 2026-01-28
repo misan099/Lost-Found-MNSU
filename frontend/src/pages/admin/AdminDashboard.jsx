@@ -1,10 +1,16 @@
 import styles from "./AdminDashboard.module.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import AdminLayout from "../../components/admin/AdminLayout";
+import useAdminDashboardStats from "../../features/admin-dashboard/useAdminDashboardStats";
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { stats, loading, errorMessage } = useAdminDashboardStats();
+
+  const totals = stats?.totals || {};
+  const claims = stats?.claims || {};
+  const formatValue = (value) => Number(value || 0).toLocaleString();
 
   // ✅ LOGOUT HANDLER
   const handleLogout = () => {
@@ -24,13 +30,42 @@ export default function AdminDashboard() {
     >
       {/* STATS */}
       <section className={styles.statsGrid}>
-        <Stat label="Total Users" value="1,247" />
-        <Stat label="Total Lost Items" value="385" />
-        <Stat label="Total Found Items" value="412" />
-        <Stat label="Active Claims" value="27" />
-        <Stat label="Pending Verifications" value="14" pending />
-        <Stat label="Resolved Items" value="289" />
+        <Stat
+          label="Total Users"
+          value={formatValue(totals.users)}
+          muted={loading}
+        />
+        <Stat
+          label="Total Lost Items"
+          value={formatValue(totals.lost)}
+          muted={loading}
+        />
+        <Stat
+          label="Total Found Items"
+          value={formatValue(totals.found)}
+          muted={loading}
+        />
+        <Stat
+          label="Active Claims"
+          value={formatValue(claims.active)}
+          muted={loading}
+        />
+        <Stat
+          label="Pending Verifications"
+          value={formatValue(claims.pending)}
+          pending
+          muted={loading}
+        />
+        <Stat
+          label="Resolved Items"
+          value={formatValue(totals.resolved)}
+          muted={loading}
+        />
       </section>
+
+      {errorMessage && (
+        <div className={styles.errorMessage}>{errorMessage}</div>
+      )}
 
       {/* ATTENTION */}
       <section className={styles.attentionSection}>
@@ -42,14 +77,18 @@ export default function AdminDashboard() {
           <span className={styles.attentionText}>
             Pending Claim Verifications
           </span>
-          <span className={styles.attentionBadge}>15</span>
+          <span className={styles.attentionBadge}>
+            {formatValue(claims.pending)}
+          </span>
         </div>
 
         <div className={styles.attentionItem}>
           <span className={styles.attentionText}>
             Items Awaiting Confirmation
           </span>
-          <span className={styles.attentionBadge}>8</span>
+          <span className={styles.attentionBadge}>
+            {formatValue(claims.awaitingResolution)}
+          </span>
         </div>
       </section>
     </AdminLayout>
@@ -57,7 +96,7 @@ export default function AdminDashboard() {
 }
 
 /* ================= STAT CARD ================= */
-function Stat({ label, value, pending }) {
+function Stat({ label, value, pending, muted }) {
   return (
     <div
       className={`${styles.statCard} ${
@@ -65,7 +104,13 @@ function Stat({ label, value, pending }) {
       }`}
     >
       <div className={styles.statLabel}>{label}</div>
-      <div className={styles.statNumber}>{value}</div>
+      <div
+        className={`${styles.statNumber} ${
+          muted ? styles.statMuted : ""
+        }`}
+      >
+        {value}
+      </div>
     </div>
   );
 }

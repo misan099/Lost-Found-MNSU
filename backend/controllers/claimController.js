@@ -16,6 +16,11 @@ const {
   isParticipant,
   ensureThreadForClaim,
 } = require("../utils/chatHelpers");
+const {
+  getAccountNotice,
+  getUserStatusPayload,
+  resolveUserStatus,
+} = require("../utils/userStatus");
 const getClaimColumns = async () => Claim.describe();
 const normalizeOptionalText = (value) => {
   if (typeof value !== "string") return null;
@@ -65,6 +70,7 @@ const deriveAdminStatus = (claim) => {
 const getUserClaimsWithMessages = async (req, res) => {
   try {
     const userId = req.user.id;
+    await resolveUserStatus(req.user);
     const claimColumns = await getClaimColumns();
     const claimAttributes = [
       "id",
@@ -236,7 +242,14 @@ const getUserClaimsWithMessages = async (req, res) => {
             : null),
       };
     });
-    return res.json(payload);
+    const accountNotice = getAccountNotice(req.user);
+    return res.json({
+      account: {
+        ...getUserStatusPayload(req.user),
+        notice: accountNotice?.message || null,
+      },
+      claims: payload,
+    });
   } catch (error) {
     console.error("USER CLAIMS WITH MESSAGES ERROR:", error);
     return res.status(500).json({
@@ -257,6 +270,15 @@ const createClaim = async (req, res) => {
     const rawAdditionalContext =
       req.body?.additional_context ?? req.body?.additionalContext;
     const claimant_user_id = req.user.id;
+    const accountNotice = getAccountNotice(req.user);
+    if (accountNotice?.status === "suspended") {
+      return res.status(403).json({
+        message: accountNotice.message,
+        status: accountNotice.status,
+        note: accountNotice.note,
+        suspendedUntil: accountNotice.suspendedUntil,
+      });
+    }
     const claimColumns = await getClaimColumns();
     const normalizedVerificationText = normalizeOptionalText(
       rawVerificationText
@@ -286,13 +308,31 @@ const createClaim = async (req, res) => {
         message: isFoundClaim ? "Found item not found" : "Lost item not found",
       });
     }
-    // ✅ Correct availability check (lowercase)
-    if (isFoundClaim && item.status !== "available") {
-      return res.status(400).json({
-        message: "This item is not available for claiming",
+    const blockedClaimStatuses = [
+      "verified",
+      "approved",
+      "awaiting_admin_resolution",
+      "resolved",
+    ];
+    const existingVerifiedClaim = await Claim.findOne({
+      attributes: ["id", "status"],
+      where: {
+        status: { [Op.in]: blockedClaimStatuses },
+        ...(isFoundClaim
+          ? { found_item_id: foundItemId }
+          : { lost_item_id: lostItemId }),
+      },
+    });
+    if (existingVerifiedClaim) {
+      return res.status(409).json({
+        message:
+          "This item already has a verified claim and cannot be claimed again",
       });
     }
-    if (!isFoundClaim && item.status !== "pending") {
+    if (
+      item.status === "resolved" ||
+      (isFoundClaim && item.status === "verified")
+    ) {
       return res.status(400).json({
         message: "This item is not available for claiming",
       });
@@ -329,12 +369,6 @@ const createClaim = async (req, res) => {
       fields: Object.keys(claimPayload),
       returning: returningFields,
     });
-    // ✅ Lock the item
-    if (isFoundClaim) {
-      await item.update({ status: "claim_requested" });
-    } else {
-      await item.update({ status: "matched" });
-    }
     return res.status(201).json({
       message: "Claim request submitted successfully",
       claim,
@@ -1092,7 +1126,7 @@ const getClaimMessages = async (req, res) => {
     }
     if (!claim.thread) {
       if (claim.status === "rejected" && claim.admin_note) {
-        return res.json([
+        const rejectionPayload = [
           {
             id: `rejection-${claim.id}`,
             claim_id: claimId,
@@ -1102,7 +1136,8 @@ const getClaimMessages = async (req, res) => {
             text: `Admin rejected this claim. Note: ${claim.admin_note}`,
             created_at: claim.updated_at || claim.created_at || null,
           },
-        ]);
+        ];
+        return res.json(rejectionPayload);
       }
       return res.json([]);
     }
@@ -1169,6 +1204,15 @@ const postClaimMessage = async (req, res) => {
         message: "Invalid claim id",
       });
     }
+    const accountNotice = getAccountNotice(req.user);
+    if (accountNotice?.status === "suspended") {
+      return res.status(403).json({
+        message: accountNotice.message,
+        status: accountNotice.status,
+        note: accountNotice.note,
+        suspendedUntil: accountNotice.suspendedUntil,
+      });
+    }
     const text = typeof req.body?.text === "string" ? req.body.text.trim() : "";
     if (!text) {
       return res.status(400).json({
@@ -1233,6 +1277,125 @@ const postClaimMessage = async (req, res) => {
     });
   }
 };
+
+/* ======================================================
+   CLAIM CHAT: DELETE THREAD (PARTICIPANTS)
+====================================================== */
+const deleteClaimThread = async (req, res) => {
+  try {
+    const claimId = Number(req.params.claimId);
+    if (!claimId) {
+      return res.status(400).json({
+        message: "Invalid claim id",
+      });
+    }
+    const claim = await fetchClaimForChat(claimId);
+    if (!claim) {
+      return res.status(404).json({
+        message: "Claim not found",
+      });
+    }
+    if (!isParticipant(req.user, claim)) {
+      return res.status(403).json({
+        message: "Not authorized to delete this chat",
+      });
+    }
+
+    const chatStatus = getChatStatus(claim);
+    const userRole = getSenderRole(req.user, claim);
+    if (chatStatus.status === "verified" && req.user.role !== "admin") {
+      if (userRole === "owner" && !chatStatus.ownerConfirmed) {
+        return res.status(400).json({
+          message:
+            "Confirm that you received your item before deleting this chat.",
+        });
+      }
+      if (userRole === "finder" && !chatStatus.finderConfirmed) {
+        return res.status(400).json({
+          message:
+            "Confirm that you returned the item before deleting this chat.",
+        });
+      }
+    }
+
+    await Claim.destroy({
+      where: { id: claimId },
+    });
+
+    return res.json({
+      success: true,
+      message: "Chat deleted successfully",
+    });
+  } catch (error) {
+    console.error("CLAIM CHAT DELETE THREAD ERROR:", error);
+    return res.status(500).json({
+      message: "Failed to delete chat",
+    });
+  }
+};
+
+/* ======================================================
+   CLAIM CHAT: DELETE MESSAGE (PARTICIPANTS)
+====================================================== */
+const deleteClaimMessage = async (req, res) => {
+  try {
+    const claimId = Number(req.params.claimId);
+    const messageId = Number(req.params.messageId);
+    if (!claimId || !messageId) {
+      return res.status(400).json({
+        message: "Invalid claim or message id",
+      });
+    }
+
+    const claim = await fetchClaimForChat(claimId);
+    if (!claim) {
+      return res.status(404).json({
+        message: "Claim not found",
+      });
+    }
+    if (!isParticipant(req.user, claim)) {
+      return res.status(403).json({
+        message: "Not authorized to delete this message",
+      });
+    }
+    const chatStatus = getChatStatus(claim);
+    const userRole = getSenderRole(req.user, claim);
+    if (chatStatus.status === "verified" && userRole !== "admin") {
+      if (userRole === "owner" && !chatStatus.ownerConfirmed) {
+        return res.status(400).json({
+          message:
+            "Confirm that you received your item before deleting messages.",
+        });
+      }
+      if (userRole === "finder" && !chatStatus.finderConfirmed) {
+        return res.status(400).json({
+          message:
+            "Confirm that you returned the item before deleting messages.",
+        });
+      }
+    }
+
+    const message = await Message.findOne({
+      where: { id: messageId, claim_id: claimId },
+    });
+    if (!message) {
+      return res.status(404).json({
+        message: "Message not found",
+      });
+    }
+    await message.destroy();
+
+    return res.json({
+      success: true,
+      message: "Message deleted successfully",
+    });
+  } catch (error) {
+    console.error("CLAIM CHAT DELETE MESSAGE ERROR:", error);
+    return res.status(500).json({
+      message: "Failed to delete message",
+    });
+  }
+};
 module.exports = {
   createClaim,
   getUserClaimsWithMessages,
@@ -1245,4 +1408,6 @@ module.exports = {
   confirmFinderReturned,
   getClaimMessages,
   postClaimMessage,
+  deleteClaimMessage,
+  deleteClaimThread,
 };

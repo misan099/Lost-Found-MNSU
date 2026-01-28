@@ -3,6 +3,7 @@ import styles from "./AddLostItemModal.module.css";
 import { addLostItem } from "../../services/api";
 import { validateLostItem } from "../../schemas/lost/lostItem.schema";
 import { isAuthenticated } from "../../utils/auth/authToken";
+import { getAccountStatus } from "../../utils/auth/authApi";
 
 export default function AddLostItemModal({ isOpen, onClose, onSuccess }) {
   const [formData, setFormData] = useState({
@@ -11,6 +12,7 @@ export default function AddLostItemModal({ isOpen, onClose, onSuccess }) {
     area: "",
     exact_location: "",
     date_lost: "",
+    time_lost: "",
     public_description: "",
     admin_verification_details: "",
     hidden_marks: "",
@@ -21,13 +23,45 @@ export default function AddLostItemModal({ isOpen, onClose, onSuccess }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [fieldErrors, setFieldErrors] = useState({});
+  const [accountRestricted, setAccountRestricted] = useState(false);
+  const [accountNotice, setAccountNotice] = useState("");
 
   useEffect(() => {
-    if (isOpen && !isAuthenticated()) {
-      setError("Please log in to report a lost item.");
-    } else if (isOpen) {
+    if (!isOpen) return;
+
+    const checkAccount = async () => {
+      if (!isAuthenticated()) {
+        const notice = "Please log in to report a lost item.";
+        setAccountRestricted(true);
+        setAccountNotice(notice);
+        setError(notice);
+        return;
+      }
+
+      setAccountRestricted(false);
+      setAccountNotice("");
       setError("");
-    }
+
+      try {
+        const status = await getAccountStatus();
+        if (
+          status?.status === "suspended" ||
+          status?.status === "blocked" ||
+          status?.status === "restricted"
+        ) {
+          setAccountRestricted(true);
+          const notice =
+            status.notice ||
+            "Your account is restricted. Please contact support.";
+          setAccountNotice(notice);
+          setError(notice);
+        }
+      } catch (err) {
+        console.error("Account status check failed:", err);
+      }
+    };
+
+    checkAccount();
   }, [isOpen]);
 
   const handleChange = (e) => {
@@ -85,6 +119,17 @@ export default function AddLostItemModal({ isOpen, onClose, onSuccess }) {
     return value;
   };
 
+  const normalizeDateTimeInput = (dateValue, timeValue) => {
+    const normalizedDate = normalizeDateInput(dateValue);
+    if (!normalizedDate) return normalizedDate;
+    const normalizedTime =
+      typeof timeValue === "string" ? timeValue.trim() : "";
+    if (!normalizedTime) return normalizedDate;
+    const parsed = new Date(`${normalizedDate}T${normalizedTime}`);
+    if (Number.isNaN(parsed.getTime())) return normalizedDate;
+    return parsed.toISOString();
+  };
+
   const clearImagePreview = () => {
     if (imagePreview && imagePreview.startsWith("blob:")) {
       URL.revokeObjectURL(imagePreview);
@@ -98,9 +143,20 @@ export default function AddLostItemModal({ isOpen, onClose, onSuccess }) {
     setError("");
     setFieldErrors({});
 
+    if (accountRestricted) {
+      setError(
+        accountNotice ||
+          "Your account is restricted. Please contact support."
+      );
+      return;
+    }
+
     const normalizedFormData = {
       ...formData,
-      date_lost: normalizeDateInput(formData.date_lost),
+      date_lost: normalizeDateTimeInput(
+        formData.date_lost,
+        formData.time_lost
+      ),
     };
 
     if (!isAuthenticated()) {
@@ -134,6 +190,7 @@ export default function AddLostItemModal({ isOpen, onClose, onSuccess }) {
         area: "",
         exact_location: "",
         date_lost: "",
+        time_lost: "",
         public_description: "",
         admin_verification_details: "",
         hidden_marks: "",
@@ -302,6 +359,23 @@ export default function AddLostItemModal({ isOpen, onClose, onSuccess }) {
                   <span className={styles.fieldError}>{fieldErrors.date_lost}</span>
                 )}
               </div>
+            </div>
+
+            <div className={styles.formGroup}>
+              <label htmlFor="time_lost">
+                Time Lost <span className={styles.optional}>(Optional)</span>
+              </label>
+              <input
+                type="time"
+                id="time_lost"
+                name="time_lost"
+                value={formData.time_lost}
+                onChange={handleChange}
+                className={fieldErrors.time_lost ? styles.inputError : ""}
+              />
+              {fieldErrors.time_lost && (
+                <span className={styles.fieldError}>{fieldErrors.time_lost}</span>
+              )}
             </div>
 
             <div className={styles.formGroup}>
@@ -559,7 +633,7 @@ export default function AddLostItemModal({ isOpen, onClose, onSuccess }) {
           <button
             type="submit"
             className={styles.submitBtn}
-            disabled={loading}
+            disabled={loading || accountRestricted}
             form="add-lost-item-form"
           >
             {loading ? "Submitting..." : "Save Lost Item"}

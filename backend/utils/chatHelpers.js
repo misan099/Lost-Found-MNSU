@@ -143,6 +143,7 @@ const ensureThreadForClaim = async (claim) => {
   return { thread, confirmation };
 };
 
+
 module.exports = {
   fetchClaimForChat,
   getChatStatus,

@@ -4,10 +4,95 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  position: relative;
 }
 
 .activeItem {
   background: rgba(59, 130, 246, 0.15);
   border-left-color: #3b82f6;
   color: #ffffff;
+}
+
+.menuLabel {
+  white-space: nowrap;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.sidebarCollapsed {
+  width: 84px;
+}
+
+.sidebarHeaderRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.appName {
+  transition: opacity 0.2s ease, width 0.2s ease;
+}
+
+.sidebarToggle {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.sidebarToggle:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.sidebarCollapsed .menuLabel {
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
+  transform: translateX(-6px);
+}
+
+.sidebarCollapsed .appName {
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
+}
+
+.sidebarCollapsed .sidebarHeaderRow {
+  justify-content: center;
+}
+
+.sidebarCollapsed .menuItem {
+  justify-content: center;
+  padding: 14px 12px;
+}
+
+.sidebarCollapsed .menuItem::after {
+  content: attr(data-label);
+  position: absolute;
+  left: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%);
+  background: #0f172a;
+  color: #ffffff;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 20;
+}
+
+.sidebarCollapsed .menuItem:hover::after {
+  opacity: 1;
+  transform: translate(2px, -50%);
 }

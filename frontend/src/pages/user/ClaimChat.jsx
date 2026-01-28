@@ -140,8 +140,11 @@ export default function ClaimChat() {
     finderConfirmed: false,
     canSend: false,
   });
+  const [accountStatus, setAccountStatus] = useState("active");
+  const [accountNotice, setAccountNotice] = useState("");
   const [pendingOwnerConfirm, setPendingOwnerConfirm] = useState(false);
   const [pendingFinderConfirm, setPendingFinderConfirm] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const selectedClaim = useMemo(
     () => claims.find((claim) => claim.id === selectedClaimId) || null,
@@ -156,7 +159,13 @@ export default function ClaimChat() {
       setErrorMessage("");
       try {
         const response = await api.get("/claims/with-messages");
-        const data = Array.isArray(response.data) ? response.data : [];
+        const rawData = response.data;
+        const accountData = Array.isArray(rawData)
+          ? null
+          : rawData?.account || null;
+        const data = Array.isArray(rawData)
+          ? rawData
+          : rawData?.claims || [];
         const mapped = data.map((claim) => {
           const status = normalizeStatus(claim.status);
           return {
@@ -181,6 +190,10 @@ export default function ClaimChat() {
         });
 
         if (isMounted) {
+          setAccountStatus(
+            accountData?.status || currentUser?.status || "active"
+          );
+          setAccountNotice(accountData?.notice || "");
           setClaims(mapped);
           setUnreadCounts((prev) => {
             const next = {};
@@ -210,6 +223,14 @@ export default function ClaimChat() {
       isMounted = false;
     };
   }, []);
+
+  useEffect(() => {
+    if (!errorMessage) return;
+    const timeoutId = setTimeout(() => {
+      setErrorMessage("");
+    }, 2000);
+    return () => clearTimeout(timeoutId);
+  }, [errorMessage]);
 
   useEffect(() => {
     selectedClaimIdRef.current = selectedClaimId;
@@ -403,35 +424,74 @@ export default function ClaimChat() {
     threadRef.current.scrollTop = threadRef.current.scrollHeight;
   }, [messages]);
 
+  const accountRestricted =
+    accountStatus === "suspended" || accountStatus === "blocked";
+
+  const accountNoticeMessage = useMemo(() => {
+    if (!accountRestricted || !accountNotice) return null;
+    return {
+      id: "account-notice",
+      sender_id: null,
+      sender_role: "admin",
+      type: "system",
+      text: accountNotice,
+      created_at: new Date().toISOString(),
+    };
+  }, [accountNotice, accountRestricted]);
+
+  const visibleMessages = useMemo(() => {
+    if (!accountNoticeMessage) return messages;
+    const hasNotice = messages.some(
+      (message) =>
+        message.type === "system" &&
+        message.text === accountNoticeMessage.text
+    );
+    return hasNotice
+      ? messages
+      : [accountNoticeMessage, ...messages];
+  }, [accountNoticeMessage, messages]);
+
   const bothConfirmed =
     roomState.ownerConfirmed && roomState.finderConfirmed;
   const banner = getBannerConfig(roomState.status, bothConfirmed);
-  const canSend = roomState.canSend && draft.trim().length > 0;
+  const canSend =
+    roomState.canSend &&
+    draft.trim().length > 0 &&
+    !accountRestricted;
   const showConfirm =
     roomState.status === "verified" && !bothConfirmed;
   const isOwner = selectedClaim?.role === "owner";
   const isFinder = selectedClaim?.role === "finder";
+  const requiresConfirmForDelete = roomState.status === "verified";
+  const hasDeleteConfirmation = isOwner
+    ? roomState.ownerConfirmed
+    : isFinder
+      ? roomState.finderConfirmed
+      : false;
+  const canDeleteChat =
+    selectedClaim && (!requiresConfirmForDelete || hasDeleteConfirmation);
   const confirmationDisabled =
     roomState.status !== "verified" ||
     bothConfirmed ||
     pendingOwnerConfirm ||
     pendingFinderConfirm;
-  const lockedPlaceholder =
-    roomState.canSend
+  const lockedPlaceholder = accountRestricted
+    ? accountNotice || "Your account is restricted. Messaging is disabled."
+    : roomState.canSend
       ? "Type your message..."
       : roomState.status === "awaiting_resolution" || bothConfirmed
-        ? "🔒 Chat locked. This conversation is read-only because the claim is awaiting admin resolution."
+        ? "Chat locked. This conversation is read-only because the claim is awaiting admin resolution."
         : roomState.status === "rejected"
-          ? "🔒 Chat locked. This conversation is read-only because the claim was rejected."
+          ? "Chat locked. This conversation is read-only because the claim was rejected."
           : roomState.status === "resolved"
-            ? "🔒 Chat locked. This conversation is read-only because the claim is resolved."
+            ? "Chat locked. This conversation is read-only because the claim is resolved."
             : roomState.status === "pending"
               ? "Chat is available after admin verification."
-              : "🔒 Chat locked. This conversation is read-only.";
+              : "Chat locked. This conversation is read-only.";
 
   const handleSend = () => {
     if (!selectedClaimId || !draft.trim()) return;
-    if (!roomState.canSend) return;
+    if (!roomState.canSend || accountRestricted) return;
     socketRef.current?.emit("send_message", {
       claimId: selectedClaimId,
       text: draft.trim(),
@@ -502,6 +562,32 @@ export default function ClaimChat() {
       setErrorMessage("Unable to confirm return.");
     } finally {
       setPendingFinderConfirm(false);
+    }
+  };
+
+  const handleDeleteChat = async () => {
+    if (!selectedClaimId || !canDeleteChat) return;
+    setErrorMessage("");
+    try {
+      await api.delete(`/claims/${selectedClaimId}/thread`);
+      setMessages([]);
+      setClaims((prev) => {
+        const nextClaims = prev.filter(
+          (claim) => claim.id !== selectedClaimId
+        );
+        setSelectedClaimId(nextClaims[0]?.id || null);
+        setUnreadCounts((counts) => {
+          const nextCounts = { ...counts };
+          delete nextCounts[selectedClaimId];
+          return nextCounts;
+        });
+        return nextClaims;
+      });
+      setIsDeleteModalOpen(false);
+    } catch (error) {
+      setErrorMessage(
+        error?.response?.data?.message || "Unable to delete this chat."
+      );
     }
   };
 
@@ -598,9 +684,30 @@ export default function ClaimChat() {
 
           <section className={styles.chatPanel}>
             {!selectedClaim ? (
-              <div className={styles.emptyState}>
-                Select a conversation to view messages
-              </div>
+              accountNoticeMessage ? (
+                <div className={styles.messagesArea}>
+    <div className={styles.systemMessage}>
+      <div
+        className={`${styles.systemBubble} ${styles.adminNotice}`}
+      >
+        <div className={styles.systemHeader}>
+          <HiOutlineExclamationCircle />
+          <span>ADMIN NOTICE</span>
+        </div>
+        <div className={styles.systemText}>
+          {accountNoticeMessage.text}
+        </div>
+        <div className={styles.systemTimestamp}>
+          {formatTimestamp(accountNoticeMessage.created_at)}
+        </div>
+      </div>
+    </div>
+                </div>
+              ) : (
+                <div className={styles.emptyState}>
+                  Select a conversation to view messages
+                </div>
+              )
             ) : (
               <>
                 <div className={styles.chatHeader}>
@@ -626,18 +733,29 @@ export default function ClaimChat() {
                       Chat with {selectedClaim.otherPartyName}
                     </div>
                   </div>
-                  <span
-                    className={`${styles.statusBadge} ${
-                      styles[
-                        `status${selectedClaim.statusLabel.replace(
-                          /\s/g,
-                          ""
-                        )}`
-                      ]
-                    }`}
-                  >
-                    {selectedClaim.statusLabel}
-                  </span>
+                  <div className={styles.chatHeaderActions}>
+                    <span
+                      className={`${styles.statusBadge} ${
+                        styles[
+                          `status${selectedClaim.statusLabel.replace(
+                            /\s/g,
+                            ""
+                          )}`
+                        ]
+                      }`}
+                    >
+                      {selectedClaim.statusLabel}
+                    </span>
+                    {canDeleteChat && (
+                      <button
+                        type="button"
+                        className={styles.deleteChatButton}
+                        onClick={() => setIsDeleteModalOpen(true)}
+                      >
+                        Delete Chat
+                      </button>
+                    )}
+                  </div>
                 </div>
 
                 {/* Primary status banner */}
@@ -654,12 +772,12 @@ export default function ClaimChat() {
                 </div>
 
                 <div className={styles.messagesArea} ref={threadRef}>
-                  {messages.length === 0 ? (
+                  {visibleMessages.length === 0 ? (
                     <div className={styles.emptyState}>
                       No messages yet.
                     </div>
                   ) : (
-                    messages.map((message) => {
+                    visibleMessages.map((message) => {
                       const normalizedRole = normalizeSenderRole(
                         message.sender_role
                       );
@@ -677,7 +795,9 @@ export default function ClaimChat() {
                             key={message.id}
                             className={styles.systemMessage}
                           >
-                            <div className={styles.systemBubble}>
+                            <div
+                              className={`${styles.systemBubble} ${styles.adminNotice}`}
+                            >
                               {/* Admin/system notices are full-width banners */}
                               <div className={styles.systemHeader}>
                                 <HiOutlineExclamationCircle />
@@ -778,7 +898,7 @@ export default function ClaimChat() {
                       placeholder={lockedPlaceholder}
                       value={draft}
                       onChange={(event) => setDraft(event.target.value)}
-                      disabled={!roomState.canSend}
+                      disabled={!roomState.canSend || accountRestricted}
                     />
                     <button
                       type="button"
@@ -796,6 +916,41 @@ export default function ClaimChat() {
           </section>
         </main>
       </div>
+
+      {isDeleteModalOpen && (
+        <div
+          className={styles.modalOverlay}
+          onClick={(event) => {
+            if (event.target === event.currentTarget) {
+              setIsDeleteModalOpen(false);
+            }
+          }}
+        >
+          <div className={styles.modalCard}>
+            <div className={styles.modalTitle}>Delete chat?</div>
+            <div className={styles.modalText}>
+              This will permanently delete the chat and all messages for
+              this claim. This action cannot be undone.
+            </div>
+            <div className={styles.modalActions}>
+              <button
+                type="button"
+                className={styles.modalCancel}
+                onClick={() => setIsDeleteModalOpen(false)}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                className={styles.modalDelete}
+                onClick={handleDeleteChat}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
     </>
   );

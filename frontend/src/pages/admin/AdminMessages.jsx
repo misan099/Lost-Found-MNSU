@@ -93,6 +93,11 @@ const getSenderLabel = (role) => {
   return "User";
 };
 
+const cleanLabel = (value) => {
+  if (!value) return "";
+  return String(value).trim();
+};
+
 export default function AdminMessages() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -106,6 +111,7 @@ export default function AdminMessages() {
   const [draft, setDraft] = useState("");
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [roomState, setRoomState] = useState({
     status: "pending",
     ownerConfirmed: false,
@@ -138,14 +144,20 @@ export default function AdminMessages() {
         const data = Array.isArray(response.data) ? response.data : [];
         const mapped = data.map((claim) => {
           const status = normalizeStatus(claim.status);
+          const lostItem = cleanLabel(claim?.lostItem?.name);
+          const foundItem = cleanLabel(claim?.foundItem?.name);
+          const lostOwner = cleanLabel(claim?.lostOwner?.name);
+          const foundOwner = cleanLabel(
+            claim?.finder?.name ?? claim?.foundOwner?.name
+          );
           return {
             id: claim.id,
             status,
             statusLabel: getStatusLabel(status),
-            lostItem: claim.lostItem?.name || "Unknown",
-            foundItem: claim.foundItem?.name || "Unknown",
-            lostOwner: claim.lostOwner?.name || "Unknown",
-            foundOwner: claim.finder?.name || "Unknown",
+            lostItem: lostItem || null,
+            foundItem: foundItem || null,
+            lostOwner: lostOwner || null,
+            foundOwner: foundOwner || null,
             ownerConfirmed: Boolean(claim.ownerConfirmed),
             finderConfirmed: Boolean(claim.finderConfirmed),
           };
@@ -319,6 +331,24 @@ export default function AdminMessages() {
     roomState.ownerConfirmed && roomState.finderConfirmed;
   const banner = getBannerConfig(roomState.status, bothConfirmed);
   const canSend = Boolean(selectedClaim) && draft.trim().length > 0;
+  const itemSummary = selectedClaim
+    ? [
+        selectedClaim.lostItem &&
+          `Lost: ${selectedClaim.lostItem}`,
+        selectedClaim.foundItem &&
+          `Found: ${selectedClaim.foundItem}`,
+      ]
+        .filter(Boolean)
+        .join(" • ")
+    : "";
+  const participantNames = selectedClaim
+    ? [
+        selectedClaim.lostOwner,
+        selectedClaim.foundOwner,
+        "Admin",
+      ].filter(Boolean)
+    : [];
+  const canDeleteChat = Boolean(selectedClaim);
 
   const handleSend = () => {
     if (!selectedClaimId || !draft.trim()) return;
@@ -327,6 +357,32 @@ export default function AdminMessages() {
       text: draft.trim(),
     });
     setDraft("");
+  };
+
+  const handleDeleteChat = async () => {
+    if (!selectedClaimId) return;
+    setErrorMessage("");
+    try {
+      const adminToken = localStorage.getItem("adminToken");
+      await api.delete(`/claims/${selectedClaimId}/thread`, {
+        headers: {
+          Authorization: `Bearer ${adminToken}`,
+        },
+      });
+      setMessages([]);
+      setClaims((prev) => {
+        const nextClaims = prev.filter(
+          (claim) => claim.id !== selectedClaimId
+        );
+        setSelectedClaimId(nextClaims[0]?.id || null);
+        return nextClaims;
+      });
+      setIsDeleteModalOpen(false);
+    } catch (error) {
+      setErrorMessage(
+        error?.response?.data?.message || "Unable to delete this chat."
+      );
+    }
   };
 
   return (
@@ -375,15 +431,29 @@ export default function AdminMessages() {
                       </span>
                     </div>
                     <div className={styles.cardItems}>
-                      <div className={styles.itemRow}>
-                        <span className={styles.itemLabel}>Lost:</span> {claim.lostItem}
-                      </div>
-                      <div className={styles.itemRow}>
-                        <span className={styles.itemLabel}>Found:</span> {claim.foundItem}
-                      </div>
+                      {claim.lostItem && (
+                        <div className={styles.itemRow}>
+                          <span className={styles.itemLabel}>Lost:</span>{" "}
+                          {claim.lostItem}
+                        </div>
+                      )}
+                      {claim.foundItem && (
+                        <div className={styles.itemRow}>
+                          <span className={styles.itemLabel}>Found:</span>{" "}
+                          {claim.foundItem}
+                        </div>
+                      )}
+                      {!claim.lostItem && !claim.foundItem && (
+                        <div className={styles.itemFallback}>
+                          Item details pending
+                        </div>
+                      )}
                     </div>
                     <div className={styles.cardParticipants}>
-                      Participants: {claim.lostOwner}, {claim.foundOwner}
+                      Participants:{" "}
+                      {[claim.lostOwner, claim.foundOwner]
+                        .filter(Boolean)
+                        .join(", ") || "Not available"}
                     </div>
                   </button>
                 ))
@@ -399,13 +469,43 @@ export default function AdminMessages() {
             ) : (
               <>
                 <div className={styles.messageHeader}>
-                  <h2>
-                    <HiOutlineChatAlt2 /> Claim #{selectedClaim.id}
-                  </h2>
-                  <div className={styles.headerInfo}>
-                    {selectedClaim.lostItem} -> {selectedClaim.foundItem}
-                    <br />
-                    Participants: {selectedClaim.lostOwner}, {selectedClaim.foundOwner}, Admin
+                  <div className={styles.headerMain}>
+                    <div className={styles.headerIcon}>
+                      <HiOutlineChatAlt2 />
+                    </div>
+                    <div className={styles.headerDetails}>
+                      <div className={styles.headerTitle}>
+                        Claim #{selectedClaim.id}
+                      </div>
+                      {itemSummary && (
+                        <div className={styles.headerSubtitle}>
+                          {itemSummary}
+                        </div>
+                      )}
+                      <div className={styles.headerParticipants}>
+                        Participants: {participantNames.join(", ")}
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.headerActions}>
+                    <span
+                      className={`${styles.statusBadge} ${
+                        styles[
+                          `status${selectedClaim.statusLabel.replace(/\s/g, "")}`
+                        ]
+                      } ${styles.headerBadge}`}
+                    >
+                      {selectedClaim.statusLabel}
+                    </span>
+                    {canDeleteChat && (
+                      <button
+                        type="button"
+                        className={styles.deleteChatButton}
+                        onClick={() => setIsDeleteModalOpen(true)}
+                      >
+                        Delete Chat
+                      </button>
+                    )}
                   </div>
                 </div>
 
@@ -495,6 +595,41 @@ export default function AdminMessages() {
           </main>
         </div>
       </div>
+
+      {isDeleteModalOpen && (
+        <div
+          className={styles.modalOverlay}
+          onClick={(event) => {
+            if (event.target === event.currentTarget) {
+              setIsDeleteModalOpen(false);
+            }
+          }}
+        >
+          <div className={styles.modalCard}>
+            <div className={styles.modalTitle}>Delete chat?</div>
+            <div className={styles.modalText}>
+              This will permanently delete the chat and all messages for
+              this claim. This action cannot be undone.
+            </div>
+            <div className={styles.modalActions}>
+              <button
+                type="button"
+                className={styles.modalCancel}
+                onClick={() => setIsDeleteModalOpen(false)}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                className={styles.modalDelete}
+                onClick={handleDeleteChat}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </AdminLayout>
   );
 }

@@ -15,12 +15,31 @@ export default function LostItemCard({ item, onViewDetails }) {
   ========================== */
   const formatNepaliTime = (dateString) => {
     if (!dateString) return "";
+    const normalized = String(dateString).trim();
+    if (!normalized) return "";
+    const parsed = new Date(normalized);
+    if (Number.isNaN(parsed.getTime())) return normalized;
 
-    return new Date(dateString).toLocaleString("en-NP", {
+    const baseOptions = {
       timeZone: "Asia/Kathmandu",
       year: "numeric",
       month: "long",
       day: "numeric",
+    };
+
+    const timeMatch = normalized.match(
+      /(?:T|\s)(\d{2}):(\d{2})(?::(\d{2}))?/
+    );
+    const hasMeaningfulTime = timeMatch
+      ? timeMatch.slice(1).some((part) => part && part !== "00")
+      : false;
+
+    if (!hasMeaningfulTime) {
+      return parsed.toLocaleDateString("en-NP", baseOptions);
+    }
+
+    return parsed.toLocaleString("en-NP", {
+      ...baseOptions,
       hour: "2-digit",
       minute: "2-digit",
       hour12: true,
@@ -33,6 +52,7 @@ export default function LostItemCard({ item, onViewDetails }) {
   const statusClassMap = {
     Available: styles.badgeAvailable,
     "Claim Requested": styles.badgeClaimRequested,
+    Verified: styles.badgeVerified,
     Returned: styles.badgeReturned,
   };
 

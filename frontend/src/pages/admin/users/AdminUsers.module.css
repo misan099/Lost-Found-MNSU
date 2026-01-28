@@ -1,0 +1,339 @@
+.pageWrapper {
+  width: 100%;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.pageHeader {
+  background: #ffffff;
+  padding: 32px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.pageTitle {
+  margin: 0 0 8px 0;
+  font-size: 28px;
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.subtitle {
+  margin: 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.tableWrapper {
+  background: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tableHead {
+  background: #374151;
+}
+
+.tableHeader {
+  padding: 16px;
+  text-align: left;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+.tableRow {
+  border-bottom: 1px solid #e5e7eb;
+  transition: background 0.2s;
+}
+
+.tableRow:hover {
+  background: #f9fafb;
+}
+
+.tableCell {
+  padding: 16px;
+  font-size: 14px;
+  color: #374151;
+  vertical-align: top;
+}
+
+.userName {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.userEmail {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.roleBadge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.roleAdmin {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.roleUser {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.statusBadge {
+  display: inline-block;
+  padding: 5px 14px;
+  border-radius: 14px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.statusActive {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.statusSuspended {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.statusBlocked {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.button:hover:not(:disabled) {
+  opacity: 0.8;
+}
+
+.button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.buttonView {
+  background: #3b82f6;
+  color: #ffffff;
+}
+
+.buttonSuspend {
+  background: #f59e0b;
+  color: #ffffff;
+}
+
+.buttonBlock {
+  background: #ef4444;
+  color: #ffffff;
+}
+
+.buttonActivate {
+  background: #10b981;
+  color: #ffffff;
+}
+
+.noItems {
+  text-align: center;
+  padding: 60px 20px;
+  color: #9ca3af;
+  font-size: 16px;
+}
+
+.errorMessage {
+  background: #fee2e2;
+  color: #991b1b;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.modalContent {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 28px;
+  max-width: 520px;
+  width: 100%;
+  box-shadow: 0 20px 25px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modalHeader {
+  padding-bottom: 16px;
+  border-bottom: 2px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modalTitle {
+  margin: 0;
+  font-size: 20px;
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.modalBody {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.profileField {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fieldLabel {
+  font-weight: 600;
+  color: #6b7280;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+.fieldValue {
+  color: #1f2937;
+  font-size: 15px;
+}
+
+.formLabel {
+  font-weight: 600;
+  color: #374151;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+.formControl {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.textareaControl {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.helperText {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.modalFooter {
+  margin-top: 8px;
+  padding-top: 16px;
+  border-top: 2px solid #e5e7eb;
+  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.closeButton {
+  padding: 10px 24px;
+  background: #6b7280;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.primaryButton {
+  padding: 10px 24px;
+  background: #111827;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cancelButton {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+
+  .table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .tableHeader,
+  .tableCell {
+    padding: 10px 8px;
+  }
+
+  .actionButtons {
+    flex-direction: column;
+  }
+
+  .button {
+    width: 100%;
+    justify-content: center;
+  }
+}

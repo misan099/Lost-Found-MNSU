@@ -64,3 +64,24 @@ export async function resetPassword(payload) {
     throw new Error(err.response?.data?.message || "Password reset failed");
   }
 }
+
+/* ===============================
+   ACCOUNT STATUS
+================================ */
+export async function getAccountStatus() {
+  try {
+    const res = await api.get("/auth/status");
+    return res.data;
+  } catch (err) {
+    const data = err.response?.data || {};
+    if (data.status || data.message) {
+      return {
+        status: data.status || "restricted",
+        notice: data.message || null,
+        note: data.note || null,
+        suspendedUntil: data.suspendedUntil || null,
+      };
+    }
+    throw new Error(data.message || "Failed to fetch account status");
+  }
+}

@@ -29,6 +29,14 @@ export const foundItemSchema = z.object({
     .min(1, "Date found is required")
     .refine((val) => !isNaN(Date.parse(val)), "Invalid date format"),
 
+  time_found: z
+    .string()
+    .trim()
+    .refine(
+      (val) => !val || /^\d{2}:\d{2}$/.test(val),
+      "Invalid time format"
+    ),
+
   public_description: z
     .string()
     .trim()

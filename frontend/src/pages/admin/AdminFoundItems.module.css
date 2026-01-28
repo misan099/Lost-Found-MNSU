@@ -6,14 +6,14 @@
 
 .pageHeader {
   background: #ffffff;
-  padding: 24px 28px;
+  padding: 28px 32px;
   border-radius: 12px;
   box-shadow: 0 1px 3px rgba(15, 23, 42, 0.1);
 }
 
 .pageTitle {
   margin: 0 0 6px 0;
-  font-size: 26px;
+  font-size: 34px;
   color: #1e293b;
   font-weight: 700;
 }
@@ -21,15 +21,15 @@
 .pageSubtitle {
   margin: 0;
   color: #64748b;
-  font-size: 14px;
+  font-size: 18px;
 }
 
 .filtersSection {
   background: #ffffff;
-  padding: 18px 20px;
+  padding: 28px 32px;
   border-radius: 12px;
   display: flex;
-  gap: 16px;
+  gap: 26px;
   flex-wrap: wrap;
   align-items: center;
   box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
@@ -42,7 +42,7 @@
 }
 
 .filterLabel {
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 600;
   color: #475569;
   text-transform: uppercase;
@@ -50,10 +50,10 @@
 }
 
 .filterSelect {
-  padding: 8px 12px;
+  padding: 13px 18px;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 17px;
   background: #ffffff;
   color: #1f2937;
 }
@@ -65,10 +65,10 @@
 
 .filterSearch input {
   width: 100%;
-  padding: 8px 12px;
+  padding: 13px 18px;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 17px;
 }
 
 .itemsContainer {
@@ -90,13 +90,13 @@
 
 .itemsTable th,
 .itemsTable td {
-  padding: 14px 16px;
+  padding: 22px 22px;
   text-align: left;
-  font-size: 14px;
+  font-size: 17px;
 }
 
 .itemsTable th {
-  font-size: 12px;
+  font-size: 15px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   color: #475569;
@@ -112,32 +112,33 @@
 }
 
 .itemImage {
-  width: 56px;
-  height: 56px;
+  width: 96px;
+  height: 96px;
   border-radius: 8px;
   object-fit: cover;
   border: 1px solid #e2e8f0;
 }
 
 .itemImagePlaceholder {
-  width: 56px;
-  height: 56px;
+  width: 96px;
+  height: 96px;
   border-radius: 8px;
   background: #e2e8f0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   color: #64748b;
-  font-size: 22px;
+  font-size: 36px;
 }
 
 .itemName {
   font-weight: 600;
   color: #1e293b;
+  font-size: 18px;
 }
 
 .itemCategory {
-  font-size: 12px;
+  font-size: 15px;
   color: #64748b;
   margin-top: 4px;
 }
@@ -146,9 +147,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 6px 12px;
+  padding: 10px 18px;
   border-radius: 999px;
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -184,10 +185,10 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 10px;
+  padding: 10px 16px;
   border: none;
   border-radius: 6px;
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
@@ -271,7 +272,7 @@
 }
 
 .modalHeader {
-  padding: 18px 22px;
+  padding: 20px 24px;
   border-bottom: 1px solid #e2e8f0;
   display: flex;
   align-items: center;
@@ -280,7 +281,7 @@
 
 .modalTitle {
   margin: 0;
-  font-size: 18px;
+  font-size: 24px;
   color: #1e293b;
 }
 
@@ -289,11 +290,11 @@
   border: none;
   cursor: pointer;
   color: #64748b;
-  font-size: 20px;
+  font-size: 22px;
 }
 
 .modalBody {
-  padding: 20px 22px;
+  padding: 22px 24px;
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -307,7 +308,7 @@
 }
 
 .modalMedia {
-  padding: 16px 22px 0;
+  padding: 18px 24px 0;
   flex: 0 0 auto;
 }
 
@@ -320,7 +321,7 @@
 }
 
 .modalDetails {
-  padding: 16px 22px 20px;
+  padding: 18px 24px 22px;
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -344,7 +345,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 600;
   color: #475569;
   width: 140px;
@@ -354,26 +355,27 @@
 .detailValue {
   color: #1f2937;
   flex: 1;
+  font-size: 17px;
 }
 
 .claimSection {
   background: #f8fafc;
   border-radius: 10px;
-  padding: 14px;
+  padding: 16px;
   border: 1px solid #e2e8f0;
 }
 
 .sectionTitle {
   margin: 0 0 12px 0;
-  font-size: 13px;
+  font-size: 16px;
   text-transform: uppercase;
   letter-spacing: 0.6px;
   color: #1e293b;
 }
 
 .claimProof {
-  width: 120px;
-  height: 80px;
+  width: 200px;
+  height: 132px;
   border-radius: 8px;
   border: 1px solid #e2e8f0;
   object-fit: cover;
@@ -386,13 +388,13 @@
   background: #eef2ff;
   color: #3730a3;
   border-radius: 8px;
-  padding: 10px 12px;
-  font-size: 13px;
+  padding: 12px 14px;
+  font-size: 14px;
   font-weight: 600;
 }
 
 .noticeIcon {
-  font-size: 16px;
+  font-size: 18px;
 }
 
 .confirmationRow {
@@ -405,7 +407,7 @@
   flex: 1;
   background: #ffffff;
   border-radius: 8px;
-  padding: 10px 12px;
+  padding: 12px 14px;
   border: 1px solid #e2e8f0;
   display: flex;
   justify-content: space-between;
@@ -422,7 +424,7 @@
 .confirmMessage {
   text-align: center;
   color: #475569;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.5;
 }
 
@@ -433,7 +435,7 @@
 }
 
 .confirmBtn {
-  padding: 8px 16px;
+  padding: 9px 18px;
   border: none;
   border-radius: 6px;
   font-weight: 600;
@@ -451,7 +453,7 @@
 }
 
 .modalFooter {
-  padding: 16px 22px;
+  padding: 18px 24px;
   border-top: 1px solid #e2e8f0;
   display: flex;
   justify-content: flex-end;
@@ -462,17 +464,17 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   color: #475569;
 }
 
 .formLabel input,
 .formLabel textarea {
-  padding: 10px 12px;
+  padding: 11px 14px;
   border-radius: 8px;
   border: 1px solid #e2e8f0;
-  font-size: 14px;
+  font-size: 15px;
 }
 
 .toast {
@@ -481,7 +483,7 @@
   right: 24px;
   background: #ffffff;
   color: #1e293b;
-  padding: 12px 18px;
+  padding: 14px 20px;
   border-radius: 8px;
   box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
   font-weight: 600;

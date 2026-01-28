@@ -1,5 +1,9 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const {
+  getAccountNotice,
+  resolveUserStatus,
+} = require("../utils/userStatus");
 
 /* ======================================================
    PROTECT ROUTES (ANY LOGGED-IN USER)
@@ -40,6 +44,16 @@ exports.protect = async (req, res, next) => {
     }
 
     // 5️⃣ Attach user to request
+    await resolveUserStatus(user);
+    const accountNotice = getAccountNotice(user);
+    if (accountNotice?.status === "blocked") {
+      return res.status(403).json({
+        message: accountNotice.message,
+        status: accountNotice.status,
+        note: accountNotice.note,
+      });
+    }
+
     req.user = user;
     next();
   } catch (error) {

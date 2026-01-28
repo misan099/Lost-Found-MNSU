@@ -1,6 +1,11 @@
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const generateToken = require("../utils/generateToken");
+const {
+  getAccountNotice,
+  getUserStatusPayload,
+  resolveUserStatus,
+} = require("../utils/userStatus");
 
 /* ======================================================
    LOGIN (USER + ADMIN via EMAIL)
@@ -37,6 +42,16 @@ exports.login = async (req, res) => {
       });
     }
 
+    await resolveUserStatus(user);
+    const accountNotice = getAccountNotice(user);
+    if (accountNotice?.status === "blocked") {
+      return res.status(403).json({
+        message: accountNotice.message,
+        status: accountNotice.status,
+        note: accountNotice.note,
+      });
+    }
+
     const token = generateToken(user);
 
     return res.status(200).json({
@@ -47,6 +62,7 @@ exports.login = async (req, res) => {
         name: user.name,
         email: user.email,
         role: user.role,
+        ...getUserStatusPayload(user),
       },
     });
   } catch (error) {
@@ -120,12 +136,36 @@ exports.signup = async (req, res) => {
         name: user.name,
         email: user.email,
         role: user.role,
+        ...getUserStatusPayload(user),
       },
     });
   } catch (err) {
     console.error("Signup error:", err);
     return res.status(500).json({
       message: "Server error",
+    });
+  }
+};
+
+/* ======================================================
+   ACCOUNT STATUS (USER)
+====================================================== */
+exports.getAccountStatus = async (req, res) => {
+  try {
+    const user = req.user;
+    await resolveUserStatus(user);
+    const accountNotice = getAccountNotice(user);
+
+    return res.json({
+      status: user?.status || "active",
+      notice: accountNotice?.message || null,
+      note: accountNotice?.note || null,
+      suspendedUntil: accountNotice?.suspendedUntil || null,
+    });
+  } catch (error) {
+    console.error("ACCOUNT STATUS ERROR:", error);
+    return res.status(500).json({
+      message: "Failed to fetch account status",
     });
   }
 };

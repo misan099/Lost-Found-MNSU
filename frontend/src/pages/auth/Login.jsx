@@ -52,8 +52,8 @@ export default function Login() {
       } else {
         window.location.href = "/dashboard";
       }
-    } catch {
-      setGeneralError("Invalid email or password.");
+    } catch (error) {
+      setGeneralError(error.message || "Invalid email or password.");
     } finally {
       setLoading(false);
     }

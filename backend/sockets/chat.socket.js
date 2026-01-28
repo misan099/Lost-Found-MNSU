@@ -6,6 +6,7 @@ const {
   isParticipant,
   ensureThreadForClaim,
 } = require("../utils/chatHelpers");
+const { getAccountNotice } = require("../utils/userStatus");
 
 const Message = db.Message;
 
@@ -66,6 +67,11 @@ const registerChatSockets = (io) => {
 
     socket.on("send_message", async ({ claimId, text }) => {
       try {
+        const accountNotice = getAccountNotice(socket.user);
+        if (accountNotice?.status === "suspended") {
+          emitMessageError(accountNotice.message);
+          return;
+        }
         const parsedClaimId = Number(claimId);
         if (!parsedClaimId) {
           emitMessageError("Invalid claim id");

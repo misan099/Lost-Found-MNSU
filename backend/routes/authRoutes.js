@@ -1,7 +1,8 @@
 const express = require("express");
 
 // Controllers
-const { login, signup } = require("../controllers/authController");
+const { login, signup, getAccountStatus } = require("../controllers/authController");
+const { protect } = require("../middlewares/authMiddleware");
 const {
   checkEmail,
   verifySecurityAnswer,
@@ -16,6 +17,7 @@ const router = express.Router();
 ======================= */
 router.post("/login", login);
 router.post("/signup", signup);
+router.get("/status", protect, getAccountStatus);
 
 /* =======================
    FORGOT PASSWORD

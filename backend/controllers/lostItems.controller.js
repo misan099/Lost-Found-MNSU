@@ -1,10 +1,46 @@
 "use strict";
 
 const { z } = require("zod");
+const { Op } = require("sequelize");
 const db = require("../models");
+const { getAccountNotice } = require("../utils/userStatus");
 
 const LostItem = db.LostItem;
 const User = db.User;
+const Claim = db.Claim;
+
+const VERIFIED_CLAIM_STATUSES = [
+  "verified",
+  "approved",
+  "awaiting_admin_resolution",
+  "resolved",
+];
+
+const appendVerifiedClaimFlag = async (items) => {
+  const itemIds = items.map((item) => item.id).filter(Boolean);
+  if (!itemIds.length) return;
+
+  const verifiedClaims = await Claim.findAll({
+    attributes: ["lost_item_id"],
+    where: {
+      lost_item_id: { [Op.in]: itemIds },
+      status: { [Op.in]: VERIFIED_CLAIM_STATUSES },
+    },
+    group: ["lost_item_id"],
+    raw: true,
+  });
+
+  const verifiedSet = new Set(
+    verifiedClaims.map((row) => row.lost_item_id)
+  );
+
+  items.forEach((item) => {
+    item.setDataValue(
+      "hasVerifiedClaim",
+      verifiedSet.has(item.id)
+    );
+  });
+};
 
 const lostItemSchema = z.object({
   item_name: z.string().trim().min(2, "Item name must be at least 2 characters"),
@@ -15,6 +51,14 @@ const lostItemSchema = z.object({
     .string()
     .min(1, "Date lost is required")
     .refine((val) => !isNaN(Date.parse(val)), "Invalid date format"),
+  time_lost: z
+    .string()
+    .trim()
+    .optional()
+    .refine(
+      (value) => !value || /^\d{2}:\d{2}$/.test(value),
+      "Invalid time format"
+    ),
   public_description: z
     .string()
     .trim()
@@ -27,6 +71,27 @@ const lostItemSchema = z.object({
   verification_notes: z.string().optional().or(z.literal("")),
 });
 
+const buildDateTime = (dateValue, timeValue) => {
+  if (!dateValue) return null;
+  const normalizedDate = String(dateValue).trim();
+  if (!normalizedDate) return null;
+  const normalizedTime = String(timeValue || "").trim();
+  const hasExplicitTime = Boolean(normalizedTime);
+  const hasTime = /(?:T|\s)\d{2}:\d{2}/.test(normalizedDate);
+
+  const parsed = hasTime
+    ? new Date(normalizedDate)
+    : hasExplicitTime
+      ? new Date(`${normalizedDate}T${normalizedTime}`)
+      : new Date(normalizedDate);
+
+  if (Number.isNaN(parsed.getTime())) return null;
+  if (hasExplicitTime) {
+    parsed.setSeconds(1, 0);
+  }
+  return parsed;
+};
+
 /* ======================================================
    PART A - CREATE LOST ITEM (USER)
    POST /api/lost-items
@@ -34,6 +99,16 @@ const lostItemSchema = z.object({
 ====================================================== */
 exports.createLostItem = async (req, res) => {
   try {
+    const accountNotice = getAccountNotice(req.user);
+    if (accountNotice?.status === "suspended") {
+      return res.status(403).json({
+        message: accountNotice.message,
+        status: accountNotice.status,
+        note: accountNotice.note,
+        suspendedUntil: accountNotice.suspendedUntil,
+      });
+    }
+
     const userId = req.user.id;
     const payload = {
       ...req.body,
@@ -47,6 +122,17 @@ exports.createLostItem = async (req, res) => {
       : null;
     const imageUrl = imagePath || req.body.image_url || null;
 
+    const dateLost = buildDateTime(
+      validatedData.date_lost,
+      validatedData.time_lost
+    );
+    if (!dateLost) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid date/time format",
+      });
+    }
+
     const lostItem = await LostItem.create({
       user_id: userId,
       item_name: validatedData.item_name,
@@ -54,7 +140,7 @@ exports.createLostItem = async (req, res) => {
       area: validatedData.area,
       exact_location: validatedData.exact_location,
       location: validatedData.exact_location,
-      date_lost: new Date(validatedData.date_lost),
+      date_lost: dateLost,
       public_description: validatedData.public_description,
       description: validatedData.public_description,
       image_path: imagePath,
@@ -120,6 +206,8 @@ exports.getPublicLostItems = async (req, res) => {
       ],
       order: [["created_at", "DESC"]],
     });
+
+    await appendVerifiedClaimFlag(lostItems);
 
     return res.status(200).json({
       success: true,
@@ -242,6 +330,8 @@ exports.getMyLostItems = async (req, res) => {
       where: { user_id: userId },
       order: [["created_at", "DESC"]],
     });
+
+    await appendVerifiedClaimFlag(myLostItems);
 
     return res.status(200).json({
       success: true,

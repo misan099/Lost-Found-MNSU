@@ -97,6 +97,9 @@
 .badgeClaimRequested {
   background: #3b82f6;
 }
+.badgeVerified {
+  background: #0f766e;
+}
 .badgeReturned,
 .badgeDefault {
   background: #6b7280;
@@ -170,5 +173,4 @@
   position: relative;
   z-index: 3;
 }
-
 

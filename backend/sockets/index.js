@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const { Server } = require("socket.io");
 const db = require("../models");
 const registerChatSockets = require("./chat.socket");
+const { getAccountNotice, resolveUserStatus } = require("../utils/userStatus");
 
 const User = db.User;
 
@@ -30,16 +31,34 @@ const initSockets = (server) => {
       }
 
       const user = await User.findByPk(decoded.id, {
-        attributes: ["id", "role", "name"],
+        attributes: [
+          "id",
+          "role",
+          "name",
+          "status",
+          "suspended_until",
+          "suspension_note",
+          "blocked_note",
+        ],
       });
       if (!user) {
         return next(new Error("User not found"));
+      }
+
+      await resolveUserStatus(user);
+      const accountNotice = getAccountNotice(user);
+      if (accountNotice?.status === "blocked") {
+        return next(new Error(accountNotice.message));
       }
 
       socket.user = {
         id: user.id,
         role: user.role,
         name: user.name,
+        status: user.status,
+        suspended_until: user.suspended_until,
+        suspension_note: user.suspension_note,
+        blocked_note: user.blocked_note,
       };
       return next();
     } catch (error) {

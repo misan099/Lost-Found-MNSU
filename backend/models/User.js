@@ -22,6 +22,16 @@ const User = sequelize.define(
       defaultValue: "user",
     },
 
+    status: {
+      type: DataTypes.ENUM("active", "suspended", "blocked"),
+      allowNull: false,
+      defaultValue: "active",
+    },
+
+    suspended_until: { type: DataTypes.DATE, allowNull: true },
+    suspension_note: { type: DataTypes.TEXT, allowNull: true },
+    blocked_note: { type: DataTypes.TEXT, allowNull: true },
+
     securityQuestion: { type: DataTypes.STRING, allowNull: true },
     securityAnswerHash: { type: DataTypes.STRING, allowNull: true },
   },

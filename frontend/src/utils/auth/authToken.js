@@ -1,5 +1,6 @@
 const TOKEN_KEY = "token";
 const USER_KEY = "user";
+const ADMIN_TOKEN_KEY = "adminToken";
 
 /* ===============================
    SAVE AUTH (TOKEN + USER)
@@ -7,6 +8,11 @@ const USER_KEY = "user";
 export function setAuth(data) {
   localStorage.setItem(TOKEN_KEY, data.token);
   localStorage.setItem(USER_KEY, JSON.stringify(data.user));
+  if (data.user?.role === "admin") {
+    localStorage.setItem(ADMIN_TOKEN_KEY, data.token);
+  } else {
+    localStorage.removeItem(ADMIN_TOKEN_KEY);
+  }
 }
 
 /* ===============================
@@ -37,4 +43,5 @@ export function isAuthenticated() {
 export function logout() {
   localStorage.removeItem(TOKEN_KEY);
   localStorage.removeItem(USER_KEY);
+  localStorage.removeItem(ADMIN_TOKEN_KEY);
 }

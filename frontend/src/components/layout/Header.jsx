@@ -1,11 +1,11 @@
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import styles from "./Header.module.css";
 import appIcon from "../../assets/icons/appIcon.png";
-import profileImage from "../../assets/images/profile.png";
 import { logout } from "../../utils/auth/authToken";
+import HeaderSearch from "../../features/search/HeaderSearch";
+import UserProfileMenu from "../../features/user-profile/UserProfileMenu";
 
 export default function Header() {
-  const username = "Prajal Danai";
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -29,14 +29,11 @@ export default function Header() {
           </div>
 
           {/* CENTER (SEARCH) */}
-          <div className={styles.center}>
-            <i className={`bi bi-search ${styles.searchIcon}`}></i>
-            <input
-              type="text"
-              placeholder="Search by item, location, category..."
-              className={styles.searchInput}
-            />
-          </div>
+          <HeaderSearch
+            containerClassName={styles.center}
+            inputClassName={styles.searchInput}
+            iconClassName={styles.searchIcon}
+          />
 
           {/* RIGHT */}
           <div className={styles.right}>
@@ -67,7 +64,14 @@ export default function Header() {
               >
                 Lost Items
               </NavLink>
-              <a href="#">My Posts</a>
+              <NavLink
+                to="/my-posts"
+                className={({ isActive }) =>
+                  isActive ? styles.active : undefined
+                }
+              >
+                My Posts
+              </NavLink>
               <NavLink
                 to="/messages"
                 className={({ isActive }) =>
@@ -76,13 +80,17 @@ export default function Header() {
               >
                 Messages
               </NavLink>
-              <a href="#">Resolve Items</a>
+              <NavLink
+                to="/resolved-items"
+                className={({ isActive }) =>
+                  isActive ? styles.active : undefined
+                }
+              >
+                Resolve Items
+              </NavLink>
             </nav>
 
-            <div className={styles.profile}>
-              <img src={profileImage} alt="Profile" className={styles.avatar} />
-              <span className={styles.username}>{username}</span>
-            </div>
+            <UserProfileMenu />
 
             <button
               className={styles.logout}
