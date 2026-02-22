@@ -13,7 +13,7 @@ import api from "../../services/api";
 import styles from "./AdminMessages.module.css";
 
 const getSocketUrl = () => {
-  const apiBase = api.defaults.baseURL || "http://localhost:5000/api";
+  const apiBase = api.defaults.baseURL || "http://localhost:5002/api";
   return apiBase.replace(/\/api\/?$/, "");
 };
 

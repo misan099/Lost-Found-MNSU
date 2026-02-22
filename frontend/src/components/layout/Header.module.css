@@ -54,7 +54,7 @@
 .logoText {
   font-size: 22px;
   font-weight: 800;
-  color: #0b4bd6;
+  color: #6d28d9;
   letter-spacing: 0.2px;
   white-space: nowrap;
 }
@@ -99,13 +99,13 @@
 }
 
 .searchInput:focus {
-  border-color: #2563eb;
+  border-color: #7c3aed;
   background: #ffffff;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
 }
 
 .searchInput:hover {
-  border-color: #cbd5f5;
+  border-color: #e9d5ff;
 }
 
 /* =====================================================
@@ -139,19 +139,19 @@
 }
 
 .nav a:hover {
-  color: #1d4ed8;
+  color: #6d28d9;
 }
 
 .nav a:focus-visible {
   outline: none;
-  color: #1d4ed8;
+  color: #6d28d9;
 }
 
 /* ACTIVE LINK */
 .nav .active {
-  color: #1d4ed8;
+  color: #6d28d9;
   font-weight: 700;
-  border-bottom-color: #2563eb;
+  border-bottom-color: #7c3aed;
 }
 
 /* =====================================================
@@ -217,7 +217,7 @@
 }
 
 .logout:focus-visible {
-  outline: 2px solid rgba(37, 99, 235, 0.3);
+  outline: 2px solid rgba(124, 58, 237, 0.3);
   outline-offset: 2px;
 }
 

@@ -4,6 +4,10 @@ const { Op } = require("sequelize");
 const { User, LostItem, FoundItem, Claim } = db;
 
 const safeNumber = (value) => Number(value) || 0;
+const isSchemaIssue = (error) => {
+  const code = error?.original?.code || error?.parent?.code || error?.code;
+  return code === "42P01" || code === "42703";
+};
 
 exports.getAdminDashboardStats = async (req, res) => {
   try {
@@ -54,6 +58,23 @@ exports.getAdminDashboardStats = async (req, res) => {
     });
   } catch (error) {
     console.error("ADMIN DASHBOARD ERROR:", error);
+
+    if (isSchemaIssue(error)) {
+      return res.json({
+        totals: {
+          users: 0,
+          lost: 0,
+          found: 0,
+          resolved: 0,
+        },
+        claims: {
+          active: 0,
+          pending: 0,
+          awaitingResolution: 0,
+        },
+      });
+    }
+
     return res.status(500).json({
       message: "Failed to load dashboard stats",
     });

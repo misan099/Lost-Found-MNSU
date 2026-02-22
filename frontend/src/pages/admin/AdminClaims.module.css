@@ -70,7 +70,7 @@
 
 .controlInput:focus {
   outline: none;
-  border-color: #4299e1;
+  border-color: #a78bfa;
 }
 
 .claimsTableContainer {
@@ -152,7 +152,7 @@
 }
 
 .statusPending {
-  background: #fef3c7;
+  background: #f8edc2;
   color: #92400e;
 }
 
@@ -172,8 +172,8 @@
 }
 
 .statusResolved {
-  background: #e0e7ff;
-  color: #3730a3;
+  background: #ede9fe;
+  color: #5b21b6;
 }
 
 .actionButtons {
@@ -210,7 +210,7 @@
 }
 
 .buttonInfo {
-  background: #3b82f6;
+  background: #8b5cf6;
   color: #ffffff;
 }
 
@@ -344,8 +344,8 @@
 .viewImagePlaceholder {
   height: 320px;
   border-radius: 16px;
-  border: 1px dashed #cbd5f5;
-  background: #eef2ff;
+  border: 1px dashed #e9d5ff;
+  background: #f5f3ff;
   color: #64748b;
   display: flex;
   align-items: center;
@@ -549,7 +549,7 @@
 
 .textArea:focus {
   outline: none;
-  border-color: #4299e1;
+  border-color: #a78bfa;
 }
 
 .confirmText {
@@ -621,8 +621,8 @@
 .imagePlaceholder {
   height: 220px;
   border-radius: 12px;
-  border: 1px dashed #cbd5f5;
-  background: #eef2ff;
+  border: 1px dashed #e9d5ff;
+  background: #f5f3ff;
   color: #64748b;
   display: flex;
   flex-direction: column;
@@ -693,8 +693,8 @@
 }
 
 .claimDetailBlock {
-  background: #eef2ff;
-  border: 1px solid #c7d2fe;
+  background: #f5f3ff;
+  border: 1px solid #ddd6fe;
   border-radius: 12px;
   padding: 14px;
   display: flex;

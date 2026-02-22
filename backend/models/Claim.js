@@ -16,7 +16,7 @@ const Claim = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
-        model: "FoundItems", // ƒo. MUST MATCH ACTUAL TABLE NAME
+        model: "found_items", // ƒo. MUST MATCH ACTUAL TABLE NAME
         key: "id",
       },
       onDelete: "CASCADE",

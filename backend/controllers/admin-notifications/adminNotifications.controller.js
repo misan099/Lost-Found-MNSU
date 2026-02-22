@@ -4,6 +4,10 @@ const db = require("../../models");
 const { User, Claim, LostItem } = db;
 
 const safeNumber = (value) => Number(value) || 0;
+const isSchemaIssue = (error) => {
+  const code = error?.original?.code || error?.parent?.code || error?.code;
+  return code === "42P01" || code === "42703";
+};
 
 exports.getAdminNotifications = async (req, res) => {
   try {
@@ -69,6 +73,48 @@ exports.getAdminNotifications = async (req, res) => {
     });
   } catch (error) {
     console.error("ADMIN NOTIFICATIONS ERROR:", error);
+
+    if (isSchemaIssue(error)) {
+      return res.json({
+        badgeCount: 0,
+        items: [
+          {
+            id: "pending-claims",
+            title: "Pending claim verifications",
+            description: "Claims waiting for admin review",
+            count: 0,
+            route: "/admin/claims",
+            tone: "warning",
+          },
+          {
+            id: "awaiting-resolution",
+            title: "Awaiting resolution",
+            description: "Claims awaiting confirmation",
+            count: 0,
+            route: "/admin/claims",
+            tone: "info",
+          },
+          {
+            id: "pending-lost",
+            title: "Pending lost item reviews",
+            description: "Lost items awaiting admin action",
+            count: 0,
+            route: "/admin/lost-items",
+            tone: "neutral",
+          },
+          {
+            id: "new-users",
+            title: "New user registrations",
+            description: "Users registered in the last 7 days",
+            count: 0,
+            route: "/admin/users",
+            tone: "success",
+          },
+        ],
+        updatedAt: new Date().toISOString(),
+      });
+    }
+
     return res.status(500).json({
       message: "Failed to load notifications",
     });

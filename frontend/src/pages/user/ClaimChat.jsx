@@ -17,7 +17,7 @@ import { getUser } from "../../utils/auth/authToken";
 import styles from "./ClaimChat.module.css";
 
 const getSocketUrl = () => {
-  const apiBase = api.defaults.baseURL || "http://localhost:5000/api";
+  const apiBase = api.defaults.baseURL || "http://localhost:5002/api";
   return apiBase.replace(/\/api\/?$/, "");
 };
 

@@ -103,9 +103,9 @@
 }
 
 .active {
-  background: #eef5ff;
-  border-color: #c7ddff;
-  box-shadow: inset 3px 0 0 #2563eb;
+  background: #f5f3ff;
+  border-color: #e9d5ff;
+  box-shadow: inset 3px 0 0 #7c3aed;
 }
 
 .unread {
@@ -172,7 +172,7 @@
 }
 
 .statusPending {
-  background: #fef3c7;
+  background: #f8edc2;
   color: #92400e;
 }
 
@@ -192,8 +192,8 @@
 }
 
 .statusResolved {
-  background: #e0e7ff;
-  color: #3730a3;
+  background: #ede9fe;
+  color: #5b21b6;
 }
 
 .unreadBadge {
@@ -366,9 +366,9 @@
 }
 
 .pending {
-  background: #eff6ff;
-  color: #1d4ed8;
-  border: 1px solid #bfdbfe;
+  background: #f5f3ff;
+  color: #6d28d9;
+  border: 1px solid #ddd6fe;
 }
 
 .rejected {
@@ -430,7 +430,7 @@
 }
 
 .sent .messageBubble {
-  background: #2563eb;
+  background: #7c3aed;
   color: #ffffff;
 }
 
@@ -472,8 +472,8 @@
 }
 
 .adminNotice {
-  background: #e0f2fe;
-  border-color: #bae6fd;
+  background: #f3e8ff;
+  border-color: #e9d5ff;
   color: #0f172a;
 }
 
@@ -485,7 +485,7 @@
   letter-spacing: 0.6px;
   text-transform: uppercase;
   font-weight: 700;
-  color: #0369a1;
+  color: #7e22ce;
   margin-bottom: 6px;
 }
 
@@ -544,7 +544,7 @@
 }
 
 .finder {
-  background: #3b82f6;
+  background: #8b5cf6;
   color: #ffffff;
 }
 
@@ -618,7 +618,7 @@
 
 .messageInput:focus {
   outline: none;
-  border-color: #2563eb;
+  border-color: #7c3aed;
 }
 
 .messageInput:disabled {
@@ -631,7 +631,7 @@
   align-items: center;
   gap: 8px;
   padding: 12px 20px;
-  background: #2563eb;
+  background: #7c3aed;
   color: #ffffff;
   border: none;
   border-radius: 22px;
@@ -739,7 +739,7 @@
 
 .messagesArea::-webkit-scrollbar-thumb:hover,
 .conversationsList::-webkit-scrollbar-thumb:hover {
-  background: #cbd5f5;
+  background: #e9d5ff;
 }
 
 @media (max-width: 1100px) {

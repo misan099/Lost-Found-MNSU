@@ -140,8 +140,8 @@
 }
 
 .sectionIcon {
-  background: #dbeafe;
-  color: #2563eb;
+  background: #ede9fe;
+  color: #7c3aed;
 }
 
 .sectionIconAlt {
@@ -186,8 +186,8 @@
 .formGroup select:focus,
 .formGroup textarea:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
 }
 
 .formGroup textarea {
@@ -225,7 +225,7 @@
   display: flex;
   align-items: flex-start;
   gap: 8px;
-  color: #d97706;
+  color: #996515;
   font-size: 15px;
 }
 
@@ -321,8 +321,8 @@
 }
 
 .adminSection {
-  background: #fef3c7;
-  border: 2px solid #fcd34d;
+  background: #f8edc2;
+  border: 2px solid #e0bf4f;
   border-radius: 18px;
   padding: 20px;
   display: flex;
@@ -336,7 +336,7 @@
   align-items: flex-start;
   gap: 12px;
   padding-bottom: 12px;
-  border-bottom: 2px solid #fbbf24;
+  border-bottom: 2px solid #d4af37;
 }
 
 .adminHeader h3 {
@@ -350,14 +350,14 @@
   margin: 6px 0 0;
   font-size: 15px;
   font-weight: 700;
-  color: #b45309;
+  color: #8b6508;
 }
 
 .adminIcon {
   width: 40px;
   height: 40px;
   border-radius: 12px;
-  background: #fde68a;
+  background: #f0d46a;
   color: #92400e;
   display: flex;
   align-items: center;
@@ -372,7 +372,7 @@
 
 .adminNote {
   background: #ffffff;
-  border: 2px solid #fbbf24;
+  border: 2px solid #d4af37;
   border-radius: 14px;
   padding: 12px 14px;
   display: flex;
@@ -395,18 +395,18 @@
 }
 
 .adminSection textarea {
-  border-color: #fbbf24;
+  border-color: #d4af37;
 }
 
 .adminSection textarea:focus {
-  border-color: #f59e0b;
+  border-color: #b8860b;
   box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
 }
 
 .adminHelper {
   margin-top: 8px;
   font-size: 14px;
-  color: #a16207;
+  color: #7f6000;
 }
 
 .privacyBox {
@@ -483,13 +483,13 @@
 }
 
 .submitBtn {
-  background: #2563eb;
+  background: #7c3aed;
   color: #ffffff;
-  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+  box-shadow: 0 10px 20px rgba(124, 58, 237, 0.2);
 }
 
 .submitBtn:hover:not(:disabled) {
-  background: #1d4ed8;
+  background: #6d28d9;
   transform: translateY(-1px);
 }
 

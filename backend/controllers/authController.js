@@ -126,7 +126,7 @@ exports.signup = async (req, res) => {
       securityAnswerHash: securityHash,
     });
 
-    const token = generateToken(user.id); // 🔴 FIXED
+    const token = generateToken(user);
 
     return res.status(201).json({
       message: "Signup successful",
@@ -141,6 +141,25 @@ exports.signup = async (req, res) => {
     });
   } catch (err) {
     console.error("Signup error:", err);
+
+    if (err?.name === "SequelizeUniqueConstraintError") {
+      return res.status(409).json({
+        message: "Email already registered",
+      });
+    }
+
+    if (err?.name === "SequelizeConnectionError") {
+      return res.status(503).json({
+        message: "Database connection failed",
+      });
+    }
+
+    if (err?.name === "SequelizeDatabaseError") {
+      return res.status(500).json({
+        message: "Database schema mismatch. Run migrations/sync and retry.",
+      });
+    }
+
     return res.status(500).json({
       message: "Server error",
     });

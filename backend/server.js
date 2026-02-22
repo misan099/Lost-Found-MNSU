@@ -6,7 +6,6 @@ require("dotenv").config();
 
 const sequelize = require("./database/sequelize");
 const initSockets = require("./sockets");
-
 // load models
 require("./models");
 
@@ -64,15 +63,30 @@ console.log("Mounted admin claims routes at /api/admin/claims");
 initSockets(server);
 
 // =====================
-// Database
+// Database + server start
 // =====================
-sequelize.authenticate()
-  .then(() => console.log("✅ PostgreSQL connected via Sequelize"))
-  .catch((err) => console.error("❌ DB connection error:", err));
+const startServer = async () => {
+  try {
+    await sequelize.authenticate();
+    console.log("✅ PostgreSQL connected via Sequelize");
 
-// =====================
-// Server start
-// =====================
-server.listen(PORT, () => {
-  console.log(`🚀 Backend running on port ${PORT}`);
-});
+    // Try to align schema in local development without blocking server startup.
+    if (process.env.NODE_ENV !== "production") {
+      try {
+        await sequelize.sync({ alter: true });
+        console.log("✅ Sequelize schema sync complete (development)");
+      } catch (syncError) {
+        console.error("⚠️ Sequelize sync skipped:", syncError.message);
+      }
+    }
+
+    server.listen(PORT, () => {
+      console.log(`🚀 Backend running on port ${PORT}`);
+    });
+  } catch (err) {
+    console.error("❌ Failed to start backend:", err);
+    process.exit(1);
+  }
+};
+
+startServer();

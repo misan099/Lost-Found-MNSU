@@ -112,7 +112,7 @@
 }
 
 .badgeAvailable { background: #10b981; }
-.badgeClaimRequested { background: #3b82f6; }
+.badgeClaimRequested { background: #8b5cf6; }
 
 .meta {
   display: flex;
@@ -153,8 +153,8 @@
 }
 
 .privacyBox {
-  border: 2px solid #bfdbfe;
-  background: #eff6ff;
+  border: 2px solid #ddd6fe;
+  background: #f5f3ff;
   border-radius: 14px;
   padding: 16px;
   display: flex;
@@ -166,8 +166,8 @@
   width: 34px;
   height: 34px;
   border-radius: 999px;
-  background: #dbeafe;
-  color: #2563eb;
+  background: #ede9fe;
+  color: #7c3aed;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -178,13 +178,13 @@
   margin: 0;
   font-size: 13px;
   font-weight: 800;
-  color: #1e3a8a;
+  color: #4c1d95;
 }
 
 .privacyText {
   margin: 6px 0 0;
   font-size: 13px;
-  color: #1e40af;
+  color: #5b21b6;
   line-height: 1.5;
 }
 
@@ -219,7 +219,7 @@
   padding: 14px 20px;
   border-radius: 12px;
   border: none;
-  background: #2563eb;
+  background: #7c3aed;
   color: #fff;
   font-weight: 800;
   cursor: pointer;
@@ -227,7 +227,7 @@
   transition: transform 0.2s ease;
 }
 
-.primaryBtn:hover { transform: translateY(-1px); background: #1d4ed8; }
+.primaryBtn:hover { transform: translateY(-1px); background: #6d28d9; }
 .primaryBtn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
 
 @media (max-width: 768px) {

@@ -64,6 +64,10 @@ const deriveAdminStatus = (claim) => {
   if (rawStatus === "rejected") return "Rejected";
   return rawStatus;
 };
+const isSchemaIssue = (error) => {
+  const code = error?.original?.code || error?.parent?.code || error?.code;
+  return code === "42P01" || code === "42703";
+};
 /* ======================================================
    USER: CLAIMS WITH MESSAGES
 ====================================================== */
@@ -626,6 +630,11 @@ const getAdminClaimsWithMessages = async (req, res) => {
     return res.json(payload);
   } catch (error) {
     console.error("ADMIN CLAIMS WITH MESSAGES ERROR:", error);
+
+    if (isSchemaIssue(error)) {
+      return res.json([]);
+    }
+
     return res.status(500).json({
       message: "Failed to fetch admin claims with messages",
     });

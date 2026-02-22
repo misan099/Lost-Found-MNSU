@@ -3,7 +3,7 @@
 ================================ */
 .authWrapper {
   min-height: 100vh;
-  background: linear-gradient(180deg, #f5f7fc, #eef2ff);
+  background: linear-gradient(180deg, #f5f7fc, #f5f3ff);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -87,7 +87,7 @@
   height: 54px;
   border-radius: 16px;
   border: none;
-  background: linear-gradient(180deg, #6c7cf5, #5a6bf0);
+  background: linear-gradient(180deg, #8b5cf6, #7c3aed);
   color: #ffffff;
   font-size: 16px;
   font-weight: 600;
@@ -106,7 +106,7 @@
 }
 
 .footer a {
-  color: #6c7cf5;
+  color: #8b5cf6;
   text-decoration: none;
   font-weight: 600;
 }
@@ -153,8 +153,8 @@
 .field input:hover,
 .field input:focus {
   background: #ffffff;
-  border-color: #6c7cf5;
-  box-shadow: 0 0 0 4px rgba(108, 124, 245, 0.2);
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.2);
   outline: none;
 }
 

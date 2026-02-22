@@ -87,19 +87,19 @@
 }
 
 .conversationCard:hover {
-  border-color: #cbd5f5;
+  border-color: #e9d5ff;
   box-shadow: 0 4px 10px rgba(15, 23, 42, 0.08);
 }
 
 .conversationCard:focus-visible {
-  outline: 2px solid #2563eb;
+  outline: 2px solid #7c3aed;
   outline-offset: 2px;
 }
 
 .active {
-  border-color: #3b82f6;
-  background: #eff6ff;
-  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.15);
+  border-color: #8b5cf6;
+  background: #f5f3ff;
+  box-shadow: 0 6px 16px rgba(139, 92, 246, 0.15);
 }
 
 .cardHeader {
@@ -125,13 +125,13 @@
 }
 
 .statusPendingVerification {
-  background: #fef3c7;
+  background: #f8edc2;
   color: #92400e;
 }
 
 .statusVerified {
-  background: #dbeafe;
-  color: #1e40af;
+  background: #ede9fe;
+  color: #5b21b6;
 }
 
 .statusAwaitingResolution {
@@ -292,7 +292,7 @@
 .locked {
   background: #fffbeb;
   color: #92400e;
-  border: 1px solid #fde68a;
+  border: 1px solid #f0d46a;
 }
 
 .disabled {
@@ -302,9 +302,9 @@
 }
 
 .pending {
-  background: #eff6ff;
-  color: #1d4ed8;
-  border: 1px solid #bfdbfe;
+  background: #f5f3ff;
+  color: #6d28d9;
+  border: 1px solid #ddd6fe;
 }
 
 .messagesThread {
@@ -334,7 +334,7 @@
 }
 
 .messageItem.admin .messageBubble {
-  background: #3b82f6;
+  background: #8b5cf6;
   color: #ffffff;
 }
 
@@ -346,7 +346,7 @@
 }
 
 .messageItem.admin .messageSender {
-  color: #dbeafe;
+  color: #ede9fe;
 }
 
 .messageText {
@@ -367,7 +367,7 @@
 }
 
 .messageItem.admin .messageTimestamp {
-  color: #dbeafe;
+  color: #ede9fe;
 }
 
 .systemMessage {
@@ -432,7 +432,7 @@
 
 .messageCompose textarea:focus {
   outline: none;
-  border-color: #3b82f6;
+  border-color: #8b5cf6;
 }
 
 .messageCompose textarea:disabled {
@@ -443,7 +443,7 @@
 
 .sendButton {
   padding: 12px 28px;
-  background: #3b82f6;
+  background: #8b5cf6;
   color: #ffffff;
   border: none;
   border-radius: 10px;
@@ -454,12 +454,12 @@
 }
 
 .sendButton:disabled {
-  background: #cbd5f5;
+  background: #e9d5ff;
   cursor: not-allowed;
 }
 
 .sendButton:not(:disabled):hover {
-  background: #2563eb;
+  background: #7c3aed;
 }
 
 .emptyState {
@@ -552,7 +552,7 @@
 
 .messagesThread::-webkit-scrollbar-thumb:hover,
 .conversationsList::-webkit-scrollbar-thumb:hover {
-  background: #cbd5f5;
+  background: #e9d5ff;
 }
 
 @media (max-width: 1100px) {

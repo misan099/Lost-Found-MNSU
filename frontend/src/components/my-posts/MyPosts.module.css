@@ -44,12 +44,12 @@
 }
 
 .filterTab:hover {
-  color: #2563eb;
-  background: #eff6ff;
+  color: #7c3aed;
+  background: #f5f3ff;
 }
 
 .filterTabActive {
-  background: #2563eb;
+  background: #7c3aed;
   color: #ffffff;
 }
 
@@ -87,7 +87,7 @@
   position: relative;
   width: 100%;
   height: 200px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -143,8 +143,8 @@
 }
 
 .statusclaimrequested {
-  background: rgba(59, 130, 246, 0.95);
-  color: #1e3a8a;
+  background: rgba(139, 92, 246, 0.95);
+  color: #4c1d95;
 }
 
 .statusmatched {
@@ -212,7 +212,7 @@
 .btnPrimary {
   flex: 1;
   padding: 0.75rem 1rem;
-  background: #2563eb;
+  background: #7c3aed;
   color: #ffffff;
   border: none;
   border-radius: 8px;
@@ -223,7 +223,7 @@
 }
 
 .btnPrimary:hover {
-  background: #1d4ed8;
+  background: #6d28d9;
   transform: translateY(-1px);
 }
 
@@ -376,7 +376,7 @@
 .btnConfirm {
   flex: 1;
   padding: 0.875rem 1rem;
-  background: #2563eb;
+  background: #7c3aed;
   color: #ffffff;
   border: none;
   border-radius: 8px;
@@ -387,7 +387,7 @@
 }
 
 .btnConfirm:hover {
-  background: #1d4ed8;
+  background: #6d28d9;
 }
 
 .btnConfirmDelete {

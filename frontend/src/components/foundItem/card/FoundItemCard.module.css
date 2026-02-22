@@ -38,7 +38,7 @@
 }
 
 .mediaAmber {
-  background: linear-gradient(135deg, #fef3c7, #fffbeb);
+  background: linear-gradient(135deg, #f8edc2, #fffbeb);
 }
 
 /* DEFAULT IMAGE */
@@ -95,7 +95,7 @@
   background: #10b981;
 }
 .badgeClaimRequested {
-  background: #3b82f6;
+  background: #8b5cf6;
 }
 .badgeVerified {
   background: #0f766e;
@@ -152,7 +152,7 @@
   margin-top: auto;
   width: 100%;
   padding: 0.9rem;
-  background: #2563eb;
+  background: #7c3aed;
   color: #fff;
   border: none;
   border-radius: 0.75rem;
@@ -161,7 +161,7 @@
 }
 
 .viewButton:hover {
-  background: #1d4ed8;
+  background: #6d28d9;
 }
 
 .content {

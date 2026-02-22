@@ -1,6 +1,6 @@
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import styles from "./Header.module.css";
-import appIcon from "../../assets/icons/appIcon.png";
+import appIcon from "../../assets/icons/Lost&FoundMNSU.png";
 import { logout } from "../../utils/auth/authToken";
 import HeaderSearch from "../../features/search/HeaderSearch";
 import UserProfileMenu from "../../features/user-profile/UserProfileMenu";
