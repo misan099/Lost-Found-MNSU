@@ -446,3 +446,58 @@
     width: 100%;
   }
 }
+
+@media (max-width: 480px) {
+  .pageHeader {
+    padding: 0 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .pageHeaderLeft h1 {
+    font-size: 1.5rem;
+  }
+
+  .mainContent {
+    padding: 0.75rem;
+  }
+
+  .filterTab {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  .postImageContainer {
+    height: 170px;
+  }
+
+  .postDetails {
+    padding: 1rem;
+  }
+
+  .postName {
+    font-size: 1rem;
+  }
+
+  .postActions {
+    flex-direction: column;
+  }
+
+  .btnPrimary,
+  .btnDelete {
+    width: 100%;
+    text-align: center;
+  }
+
+  .modalContent {
+    padding: 1.25rem;
+    border-radius: 12px;
+  }
+
+  .modalActions {
+    flex-direction: column;
+  }
+
+  .emptyTitle {
+    font-size: 1.25rem;
+  }
+}

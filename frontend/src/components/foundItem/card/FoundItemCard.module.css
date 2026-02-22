@@ -174,3 +174,59 @@
   z-index: 3;
 }
 
+@media (max-width: 768px) {
+  .media {
+    height: 16rem;
+  }
+
+  .content {
+    padding: 1.25rem;
+  }
+
+  .title {
+    font-size: 1.1rem;
+  }
+
+  .category {
+    font-size: 16px;
+  }
+
+  .meta {
+    gap: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .media {
+    height: 14rem;
+  }
+
+  .content {
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 1rem;
+  }
+
+  .category {
+    font-size: 14px;
+    margin-bottom: 0.75rem;
+  }
+
+  .meta {
+    gap: 10px;
+    font-size: 0.85rem;
+  }
+
+  .viewButton {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .badge {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.6rem;
+  }
+}
+

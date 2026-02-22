@@ -13,3 +13,25 @@
   padding: 24px 0;
   color: #6b7280;
 }
+
+@media (max-width: 768px) {
+  .body {
+    margin: 0 0 2rem;
+    padding: 0 1rem;
+  }
+
+  .heading {
+    margin-bottom: 1.25rem;
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .body {
+    padding: 0 0.5rem;
+  }
+
+  .heading {
+    font-size: 1.25rem;
+  }
+}

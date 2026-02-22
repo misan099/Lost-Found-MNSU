@@ -513,3 +513,111 @@
     justify-content: space-between;
   }
 }
+
+@media (max-width: 768px) {
+  .pageHeader {
+    padding: 20px;
+  }
+
+  .pageTitle {
+    font-size: 26px;
+  }
+
+  .pageSubtitle {
+    font-size: 15px;
+  }
+
+  .filtersSection {
+    padding: 18px;
+    gap: 14px;
+  }
+
+  .filterSelect,
+  .filterSearch input {
+    font-size: 15px;
+    padding: 10px 14px;
+  }
+
+  .filterLabel {
+    font-size: 14px;
+  }
+
+  .actionsCell {
+    flex-direction: column;
+  }
+
+  .actionBtn {
+    width: 100%;
+    justify-content: center;
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  .modalOverlay {
+    padding: 16px;
+  }
+
+  .modalContent {
+    max-width: 100%;
+  }
+
+  .modalHeader {
+    padding: 16px 18px;
+  }
+
+  .modalTitle {
+    font-size: 20px;
+  }
+
+  .modalBody {
+    padding: 16px 18px;
+  }
+
+  .detailRow {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .detailLabel {
+    width: auto;
+  }
+
+  .toast {
+    left: 16px;
+    right: 16px;
+    top: auto;
+    bottom: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pageHeader {
+    padding: 16px;
+  }
+
+  .pageTitle {
+    font-size: 22px;
+  }
+
+  .filtersSection {
+    padding: 14px;
+  }
+
+  .modalHeader {
+    padding: 14px 16px;
+  }
+
+  .modalTitle {
+    font-size: 18px;
+  }
+
+  .modalBody {
+    padding: 14px 16px;
+  }
+
+  .itemImage,
+  .itemImagePlaceholder {
+    width: 72px;
+    height: 72px;
+  }
+}

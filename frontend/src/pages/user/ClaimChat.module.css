@@ -787,3 +787,105 @@
     justify-content: center;
   }
 }
+
+@media (max-width: 480px) {
+  .pageWrapper {
+    padding: 10px 0 0;
+  }
+
+  .sidebarHeader {
+    padding: 14px 16px;
+  }
+
+  .sidebarTitle {
+    font-size: 20px;
+  }
+
+  .conversationCard {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .itemThumbnail {
+    width: 46px;
+    height: 46px;
+  }
+
+  .itemName {
+    font-size: 15px;
+  }
+
+  .statusBadge {
+    font-size: 10px;
+    padding: 4px 8px;
+  }
+
+  .chatHeader {
+    padding: 14px 16px;
+    flex-wrap: wrap;
+  }
+
+  .chatItemImage {
+    width: 56px;
+    height: 56px;
+  }
+
+  .chatItemName {
+    font-size: 18px;
+  }
+
+  .chatItemLocation {
+    font-size: 13px;
+  }
+
+  .messagesArea {
+    padding: 14px 12px;
+  }
+
+  .message {
+    max-width: 90%;
+  }
+
+  .messageBubble {
+    padding: 12px 14px;
+  }
+
+  .messageText {
+    font-size: 15px;
+  }
+
+  .inputArea {
+    padding: 10px 12px 14px;
+  }
+
+  .messageInput {
+    font-size: 15px;
+    padding: 10px 14px;
+  }
+
+  .sendButton {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+
+  .banner {
+    margin: 8px 12px 0;
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .confirmationSection {
+    margin: 8px 12px 0;
+    padding: 10px 12px;
+  }
+
+  .confirmButton {
+    min-width: 0;
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  .modalCard {
+    padding: 18px;
+  }
+}

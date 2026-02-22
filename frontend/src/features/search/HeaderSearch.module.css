@@ -116,3 +116,67 @@
   width: 16px;
   height: 16px;
 }
+
+/* ===============================
+   RESPONSIVE
+================================ */
+@media (max-width: 768px) {
+  .resultsPanel {
+    width: 96vw;
+    min-width: 0;
+    max-height: 360px;
+    border-radius: 12px;
+    padding: 10px;
+  }
+
+  .resultRow {
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .resultImage {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+  }
+
+  .resultTitle {
+    font-size: 16px;
+  }
+
+  .resultMeta {
+    font-size: 13px;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .resultsPanel {
+    top: calc(100% + 6px);
+    left: -10px;
+    right: -10px;
+    width: auto;
+    max-height: 320px;
+    border-radius: 10px;
+  }
+
+  .resultRow {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .resultImage {
+    width: 50px;
+    height: 50px;
+  }
+
+  .resultTitle {
+    font-size: 15px;
+    margin-bottom: 4px;
+  }
+
+  .resultMeta {
+    font-size: 12px;
+    flex-wrap: wrap;
+  }
+}

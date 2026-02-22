@@ -151,3 +151,45 @@
     padding: 22px;
   }
 }
+
+@media (max-width: 480px) {
+  .container {
+    padding: 20px 10px 40px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  .summaryCards {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .card {
+    padding: 18px;
+  }
+
+  .cardValue {
+    font-size: 28px;
+  }
+
+  .reportsSection {
+    padding: 16px;
+  }
+
+  .sectionTitle {
+    font-size: 17px;
+  }
+
+  .table th,
+  .table td {
+    padding: 10px 8px;
+    font-size: 13px;
+  }
+
+  .refreshButton {
+    width: 100%;
+    text-align: center;
+  }
+}

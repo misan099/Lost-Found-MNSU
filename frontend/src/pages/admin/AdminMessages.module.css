@@ -592,3 +592,63 @@
     width: 100%;
   }
 }
+
+@media (max-width: 480px) {
+  .pageHeader {
+    padding: 18px 16px;
+  }
+
+  .pageHeader h1 {
+    font-size: 22px;
+  }
+
+  .conversationCard {
+    padding: 12px;
+  }
+
+  .claimIdBadge {
+    font-size: 12px;
+  }
+
+  .statusBadge {
+    font-size: 10px;
+    padding: 4px 10px;
+  }
+
+  .messageHeader {
+    padding: 16px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .headerIcon {
+    width: 44px;
+    height: 44px;
+    font-size: 22px;
+  }
+
+  .headerTitle {
+    font-size: 17px;
+  }
+
+  .messagesThread {
+    padding: 14px;
+  }
+
+  .messageBubble {
+    max-width: 90%;
+    padding: 10px 14px;
+  }
+
+  .messageText {
+    font-size: 13px;
+  }
+
+  .inputSection {
+    padding: 14px 16px 18px;
+  }
+
+  .modalCard {
+    padding: 18px;
+  }
+}

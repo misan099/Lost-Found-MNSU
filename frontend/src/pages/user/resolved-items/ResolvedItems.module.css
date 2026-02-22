@@ -498,3 +498,63 @@
     padding-left: 2rem;
   }
 }
+
+@media (max-width: 480px) {
+  .pageHeader {
+    padding: 0 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .pageHeaderLeft h1 {
+    font-size: 1.5rem;
+  }
+
+  .mainContent {
+    padding: 0.75rem;
+  }
+
+  .filterTab {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  .itemImageContainer {
+    height: 170px;
+  }
+
+  .itemDetails {
+    padding: 1rem;
+  }
+
+  .itemName {
+    font-size: 1rem;
+  }
+
+  .modalContent {
+    border-radius: 12px;
+  }
+
+  .modalHeader {
+    padding: 1rem 1.25rem;
+  }
+
+  .modalTitle {
+    font-size: 1.25rem;
+  }
+
+  .modalBody {
+    padding: 1.25rem;
+  }
+
+  .detailsImage {
+    height: 180px;
+  }
+
+  .timelineSection {
+    padding: 1rem;
+  }
+
+  .timelineContent {
+    padding: 0.75rem;
+  }
+}

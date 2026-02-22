@@ -797,3 +797,72 @@
     width: 100%;
   }
 }
+
+@media (max-width: 480px) {
+  .container {
+    padding: 10px;
+  }
+
+  .pageHeader {
+    padding: 16px;
+  }
+
+  .pageTitle {
+    font-size: 22px;
+  }
+
+  .controlsBar {
+    padding: 14px;
+    gap: 12px;
+  }
+
+  .controlInput {
+    font-size: 13px;
+    padding: 9px 12px;
+  }
+
+  .modalOverlay {
+    padding: 8px;
+  }
+
+  .modalContent {
+    border-radius: 10px;
+  }
+
+  .viewModal .modalTitle {
+    font-size: 18px;
+  }
+
+  .viewModalBody {
+    padding: 12px;
+  }
+
+  .viewImage,
+  .viewImagePlaceholder {
+    height: 180px;
+  }
+
+  .viewSectionTitle {
+    font-size: 16px;
+  }
+
+  .viewLabel {
+    font-size: 13px;
+  }
+
+  .viewValue {
+    font-size: 14px;
+  }
+
+  .claimImage {
+    height: 160px;
+  }
+
+  .fieldLabel {
+    font-size: 13px;
+  }
+
+  .fieldValue {
+    font-size: 14px;
+  }
+}

@@ -187,3 +187,82 @@
   opacity: 0.7;
   cursor: not-allowed;
 }
+
+/* ===============================
+   RESPONSIVE
+================================ */
+@media (max-width: 768px) {
+  .authCard {
+    border-radius: 16px;
+    margin: 16px;
+    box-shadow: 0 16px 48px rgba(31, 41, 55, 0.12);
+  }
+
+  .authRight {
+    padding: 28px 24px;
+  }
+
+  .brandTitle {
+    font-size: 26px;
+  }
+
+  .welcomeTitle {
+    font-size: 19px;
+  }
+
+  .authInput {
+    height: 52px !important;
+    font-size: 15px !important;
+  }
+
+  .authBtn {
+    height: 52px;
+    font-size: 16px;
+  }
+
+  .authLink {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .authWrapper {
+    padding: 0;
+    align-items: flex-start;
+  }
+
+  .authCard {
+    margin: 0;
+    border-radius: 0;
+    min-height: 100vh;
+    box-shadow: none;
+  }
+
+  .authRight {
+    padding: 24px 18px;
+  }
+
+  .brandTitle {
+    font-size: 24px;
+  }
+
+  .welcomeTitle {
+    font-size: 18px;
+  }
+
+  .authInput {
+    height: 48px !important;
+    font-size: 14px !important;
+    border-radius: 12px !important;
+  }
+
+  .authBtn {
+    height: 48px;
+    font-size: 15px;
+    border-radius: 12px;
+  }
+
+  .signupText {
+    font-size: 14px;
+  }
+}

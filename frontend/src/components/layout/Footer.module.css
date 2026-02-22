@@ -22,3 +22,32 @@
 .link:hover {
   color: #2563eb;
 }
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 1.5rem 1rem;
+  }
+
+  .links {
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+  }
+
+  .text {
+    font-size: 0.85rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .links {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .text {
+    font-size: 0.8rem;
+  }
+}

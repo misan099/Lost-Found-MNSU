@@ -257,3 +257,58 @@
     display: none;
   }
 }
+
+@media (max-width: 768px) {
+  .menu {
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 16px 16px 0 0;
+    min-width: 100%;
+    padding: 12px;
+    box-shadow: 0 -12px 30px rgba(15, 23, 42, 0.15);
+    z-index: 50;
+  }
+
+  .modalOverlay {
+    padding: 16px;
+  }
+
+  .modal {
+    max-width: 100%;
+    border-radius: 12px;
+  }
+
+  .modalActions {
+    flex-direction: column;
+  }
+
+  .secondaryButton,
+  .primaryButton {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .avatar {
+    width: 32px;
+    height: 32px;
+  }
+
+  .caret {
+    display: none;
+  }
+
+  .menuItem {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .fieldInput {
+    font-size: 14px;
+    padding: 9px 10px;
+  }
+}

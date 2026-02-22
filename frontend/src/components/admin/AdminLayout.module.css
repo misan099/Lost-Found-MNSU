@@ -96,3 +96,42 @@
   opacity: 1;
   transform: translate(2px, -50%);
 }
+
+/* ===============================
+   RESPONSIVE
+================================ */
+@media (max-width: 768px) {
+  .sidebarCollapsed {
+    width: 100%;
+  }
+
+  .sidebarCollapsed .menuLabel {
+    opacity: 1;
+    width: auto;
+    overflow: visible;
+    transform: none;
+  }
+
+  .sidebarCollapsed .appName {
+    opacity: 1;
+    width: auto;
+    overflow: visible;
+  }
+
+  .sidebarCollapsed .menuItem {
+    justify-content: flex-start;
+    padding: 12px 16px;
+  }
+
+  .sidebarCollapsed .menuItem::after {
+    display: none;
+  }
+
+  .sidebarToggle {
+    display: none;
+  }
+
+  .menuLabel {
+    font-size: 13px;
+  }
+}

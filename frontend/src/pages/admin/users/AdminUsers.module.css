@@ -337,3 +337,35 @@
     justify-content: center;
   }
 }
+
+@media (max-width: 480px) {
+  .container {
+    padding: 10px;
+  }
+
+  .pageHeader {
+    padding: 20px 16px;
+  }
+
+  .pageTitle {
+    font-size: 22px;
+  }
+
+  .modalContent {
+    padding: 20px 16px;
+  }
+
+  .modalTitle {
+    font-size: 18px;
+  }
+
+  .modalFooter {
+    flex-direction: column;
+  }
+
+  .closeButton,
+  .primaryButton {
+    width: 100%;
+    text-align: center;
+  }
+}

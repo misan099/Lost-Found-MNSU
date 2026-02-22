@@ -431,3 +431,48 @@
     min-width: 0;
   }
 }
+
+@media (max-width: 480px) {
+  .container {
+    padding: 10px;
+  }
+
+  .pageHeader {
+    padding: 18px 16px;
+  }
+
+  .pageTitle {
+    font-size: 22px;
+  }
+
+  .controlsSection {
+    padding: 14px;
+    gap: 12px;
+  }
+
+  .controlInput {
+    min-width: 0;
+    font-size: 13px;
+  }
+
+  .modalOverlay {
+    padding: 8px;
+  }
+
+  .modalTitle {
+    font-size: 18px;
+  }
+
+  .modalBody {
+    padding: 14px 16px;
+  }
+
+  .modalImage,
+  .imagePlaceholder {
+    height: 180px;
+  }
+
+  .modalFooter {
+    padding: 14px 16px;
+  }
+}
