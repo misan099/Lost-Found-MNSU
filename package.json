@@ -1,0 +1,9 @@
+{
+  "name": "lost-found-mnsu",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "build": "npm --prefix frontend clean-install --progress=false && npm --prefix frontend run build",
+    "start": "npm --prefix frontend run start"
+  }
+}
